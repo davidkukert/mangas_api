@@ -30,3 +30,6 @@ bun dev
 - `bun dev` - Inicia o servidor em modo desenvolvimento
 - `bun start` - Inicia o servidor em modo produção
 
+## Licença
+
+[MIT](LICENSE.md)
