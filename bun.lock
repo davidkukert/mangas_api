@@ -10,6 +10,7 @@
         "@prisma/adapter-pg": "^6.12.0",
         "@prisma/client": "^6.12.0",
         "elysia": "^1.3.5",
+        "elysia-http-error": "^1.3.0",
         "zod": "^4.0.5",
       },
       "devDependencies": {
@@ -97,6 +98,8 @@
     "debug": ["debug@4.4.1", "", { "dependencies": { "ms": "^2.1.3" } }, "sha512-KcKCqiftBJcZr++7ykoDIEwSa3XWowTfNPo92BYxjXiyYEVrUQh2aLyhxBCwww+heortUFxEJYcRzosstTEBYQ=="],
 
     "elysia": ["elysia@1.3.5", "", { "dependencies": { "cookie": "^1.0.2", "exact-mirror": "0.1.2", "fast-decode-uri-component": "^1.0.1" }, "optionalDependencies": { "@sinclair/typebox": "^0.34.33", "openapi-types": "^12.1.3" }, "peerDependencies": { "file-type": ">= 20.0.0", "typescript": ">= 5.0.0" } }, "sha512-XVIKXlKFwUT7Sta8GY+wO5reD9I0rqAEtaz1Z71UgJb61csYt8Q3W9al8rtL5RgumuRR8e3DNdzlUN9GkC4KDw=="],
+
+    "elysia-http-error": ["elysia-http-error@1.3.0", "", { "dependencies": { "elysia": "latest" }, "peerDependencies": { "typescript": "^5.0.0" } }, "sha512-28cVWYU6pBMgW4ptSGnY0rEPfhw2QXAkY92Y+hMCQPP3EJEhMdLTG+bC1Er/Pv4OuYw/S/o2BS0fP6EdxG8v8g=="],
 
     "exact-mirror": ["exact-mirror@0.1.2", "", { "peerDependencies": { "@sinclair/typebox": "^0.34.15" }, "optionalPeers": ["@sinclair/typebox"] }, "sha512-wFCPCDLmHbKGUb8TOi/IS7jLsgR8WVDGtDK3CzcB4Guf/weq7G+I+DkXiRSZfbemBFOxOINKpraM6ml78vo8Zw=="],
 
