@@ -6,17 +6,25 @@ import { UserModel } from './model'
 export const users = new Elysia({ name: 'Module.Users', prefix: '/users' })
 	.use(UserModel)
 	.use(setup)
-	.get('/', async ({ db }) => {
-		const data = await db.user.findMany({ omit: { password: true } })
-		return { data }
-	})
-	.get('/:id', async ({ db, params: { id } }) => {
-		const data = await db.user.findUniqueOrThrow({
-			where: { id },
-			omit: { password: true },
-		})
-		return { data }
-	})
+	.get(
+		'/',
+		async ({ db }) => {
+			const data = await db.user.findMany({ omit: { password: true } })
+			return { data }
+		},
+		{ publicRoute: true },
+	)
+	.get(
+		'/:id',
+		async ({ db, params: { id } }) => {
+			const data = await db.user.findUniqueOrThrow({
+				where: { id },
+				omit: { password: true },
+			})
+			return { data }
+		},
+		{ publicRoute: true },
+	)
 	.post(
 		'/',
 		async ({ db, body, set }) => {
@@ -30,7 +38,7 @@ export const users = new Elysia({ name: 'Module.Users', prefix: '/users' })
 			set.status = 201
 			return { data }
 		},
-		{ body: 'user.create' },
+		{ body: 'user.create', publicRoute: true },
 	)
 	.put(
 		'/:id',
@@ -45,12 +53,35 @@ export const users = new Elysia({ name: 'Module.Users', prefix: '/users' })
 		},
 		{
 			body: 'user.update',
+			privateRoute: true,
+			async beforeHandle({ auth, db, params: { id } }) {
+				const user = await db.user.findUniqueOrThrow({ where: { id } })
+				auth.authorization(auth.currentUser, 'update', {
+					__typename: 'User',
+					id: user.id,
+					role: user.role,
+				})
+			},
 		},
 	)
-	.delete('/:id', async ({ db, params: { id } }) => {
-		await db.user.delete({ where: { id } })
-		return { message: 'User deleted' }
-	})
+	.delete(
+		'/:id',
+		async ({ db, params: { id } }) => {
+			await db.user.delete({ where: { id } })
+			return { message: 'User deleted' }
+		},
+		{
+			privateRoute: true,
+			async beforeHandle({ auth, db, params: { id } }) {
+				const user = await db.user.findUniqueOrThrow({ where: { id } })
+				auth.authorization(auth.currentUser, 'delete', {
+					__typename: 'User',
+					id: user.id,
+					role: user.role,
+				})
+			},
+		},
+	)
 	.onError(({ error, handleError, set }) => {
 		if (error instanceof Prisma.PrismaClientKnownRequestError) {
 			const { message, status } = handleError(error, 'User', {})
