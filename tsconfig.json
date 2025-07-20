@@ -24,6 +24,22 @@
     // Some stricter flags (disabled by default)
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "noPropertyAccessFromIndexSignature": false
+    "noPropertyAccessFromIndexSignature": false,
+    // paths
+    "baseUrl": "./",
+    "paths": {
+      "@db/*": [
+        "src/db/*"
+      ],
+      "@modules/*": [
+        "src/modules/*"
+      ],
+      "@utils/*": [
+        "src/utils/*"
+      ],
+      "@app/*": [
+        "src/*.ts",
+      ]
+    }
   }
 }

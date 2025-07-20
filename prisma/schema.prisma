@@ -1,0 +1,172 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider        = "prisma-client"
+  previewFeatures = ["queryCompiler", "driverAdapters"]
+  output          = "../src/db/prisma"
+
+  // Optional
+  runtime                = "bun"
+  moduleFormat           = "esm"
+  generatedFileExtension = "ts"
+  importFileExtension    = "ts"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator prismabox {
+  provider                    = "prismabox"
+  typeboxImportDependencyName = "elysia"
+  typeboxImportVariableName   = "t"
+  inputModel                  = true
+  output                      = "../src/db/schemas"
+}
+
+enum Role {
+  reader
+  admin
+}
+
+model User {
+  id String @id @default(ulid())
+
+  username String @unique
+  password String
+  /// @prismabox.input.hide
+  role     Role   @default(reader)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+enum StatusEnum {
+  ongoing
+  completed
+  hiatus
+  cancelled
+}
+
+enum ContentRatingEnum {
+  safe
+  suggestive
+  erotica
+  pornographic
+}
+
+enum StateEnum {
+  draft
+  published
+  submitted
+  rejected
+}
+
+enum DemographicEnum {
+  shounen
+  shoujo
+  seinen
+  josei
+}
+
+model Manga {
+  id String @id @default(ulid())
+
+  title                  String            @unique
+  alternativeTitles      String[]          @default([]) @map("alternative_titles")
+  description            String?
+  originalLanguage       String            @map("original_language")
+  publicationDemographic DemographicEnum?  @map("publication_demographic")
+  status                 StatusEnum
+  year                   Int?
+  contentRating          ContentRatingEnum @map("content_rating")
+  state                  StateEnum
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  authors MangaAuthor[]
+  tags    Tag[]         @relation("mangas_tags")
+
+  chapters Chapter[]
+
+  @@map("mangas")
+}
+
+model Author {
+  id String @id @default(ulid())
+
+  name        String  @unique
+  biography   String?
+  socialLinks Json?   @map("social_links")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  mangas MangaAuthor[]
+
+  @@map("authors")
+}
+
+enum TagGroupEnum {
+  genre
+  theme
+  format
+  content
+}
+
+model Tag {
+  id String @id @default(ulid())
+
+  name        String       @unique
+  description String?
+  group       TagGroupEnum
+
+  mangas Manga[] @relation("mangas_tags")
+
+  @@map("tags")
+}
+
+model Chapter {
+  id String @id @default(ulid())
+
+  number             String
+  title              String?
+  volume             String?
+  pages              Int
+  translatedLanguage String  @map("translated_language")
+  mangaId            String  @map("manga_id")
+
+  manga Manga @relation(fields: [mangaId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@unique([mangaId, number])
+  @@map("chapters")
+}
+
+enum MangaAuthorRoleEnum {
+  author
+  artist
+}
+
+model MangaAuthor {
+  id       Int                 @id @default(autoincrement())
+  mangaId  String              @map("manga_id")
+  authorId String              @map("author_id")
+  role     MangaAuthorRoleEnum
+
+  manga  Manga  @relation(fields: [mangaId], references: [id], onDelete: Cascade)
+  author Author @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@unique([mangaId, authorId])
+  @@map("manga_authors")
+}
