@@ -32,4 +32,4 @@ bun dev
 
 ## Licença
 
-[MIT](LICENSE.md)
+[MIT](LICENSE)
