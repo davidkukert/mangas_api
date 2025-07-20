@@ -1,0 +1,21 @@
+{
+  "name": "mangas_api",
+  "module": "src/http/server.ts",
+  "type": "module",
+  "dependencies": {},
+  "devDependencies": {
+    "@biomejs/biome": "^2.1.2",
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "scripts": {
+    "dev": "bun --watch src/http/server.ts",
+    "build": "bun build --compile --minify-whitespace --minify-syntax --target bun --outfile ./dist/server ./src/http/server.ts",
+    "build:js": "bun build src/http/server.ts --target bun --outdir ./dist",
+    "start": "NODE_ENV=production ./dist/server",
+    "start:js": "NODE_ENV=production bun dist/server.js",
+    "test": "bun test"
+  }
+}
