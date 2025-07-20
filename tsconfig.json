@@ -28,8 +28,11 @@
     // paths
     "baseUrl": "./",
     "paths": {
+      "@db": [
+        "src/db/index.ts",
+      ],
       "@db/*": [
-        "src/db/*"
+        "src/db/*",
       ],
       "@modules/*": [
         "src/modules/*"

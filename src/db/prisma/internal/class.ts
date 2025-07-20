@@ -26,9 +26,9 @@ const config: runtime.GetPrismaClientConfig = {
       "fromEnvVar": null
     },
     "config": {
+      "moduleFormat": "esm",
       "importFileExtension": "ts",
       "runtime": "bun",
-      "moduleFormat": "esm",
       "generatedFileExtension": "ts",
       "engineType": "client"
     },
@@ -53,6 +53,7 @@ const config: runtime.GetPrismaClientConfig = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": true,
   "inlineDatasources": {
     "db": {
       "url": {
