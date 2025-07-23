@@ -40,6 +40,14 @@ export const prismaDecorator = new Elysia({
 							`${error.meta?.modelName ?? modelName ?? ''} not found`,
 					}
 
+				case 'P2011':
+					return {
+						status: 404,
+						message:
+							messages.P2003 ??
+							`${error.meta?.modelName ?? modelName ?? ''} not found`,
+					}
+
 				case 'P2025':
 					return {
 						status: 404,

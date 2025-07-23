@@ -1,11 +1,15 @@
 import { setup } from '@app/setup'
 import { Prisma } from '@db/prisma/client'
 import Elysia from 'elysia'
+import { mangasAuthors } from './authors'
 import { MangaModel } from './model'
+import { mangasTags } from './tags'
 
 export const mangas = new Elysia({ name: 'Module.Mangas', prefix: '/mangas' })
 	.use(MangaModel)
 	.use(setup)
+	.use(mangasAuthors)
+	.use(mangasTags)
 	.get(
 		'/',
 		async ({ db }) => {
