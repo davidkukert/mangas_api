@@ -5,6 +5,7 @@ import { authors } from '@modules/authors'
 import { chapters } from '@modules/chapters'
 import { mangas } from '@modules/mangas'
 import { tags } from '@modules/tags'
+import { uploads } from '@modules/uploads'
 import { users } from '@modules/users'
 import Elysia from 'elysia'
 
@@ -19,6 +20,7 @@ const app = new Elysia({
 	.use(authors)
 	.use(tags)
 	.use(chapters)
+	.use(uploads)
 	.listen({ port: envVars.PORT, hostname: '0.0.0.0' })
 
 console.log(`API is running at ${app.server?.url}`)
