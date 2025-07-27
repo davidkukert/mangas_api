@@ -189,6 +189,9 @@ export type UserWhereInput = {
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  followingMangas?: Prisma.MangaFollowerListRelationFilter
+  readingHistory?: Prisma.ReadingHistoryListRelationFilter
+  authorProfile?: Prisma.XOR<Prisma.AuthorNullableScalarRelationFilter, Prisma.AuthorWhereInput> | null
 }
 
 export type UserOrderByWithRelationInput = {
@@ -198,6 +201,9 @@ export type UserOrderByWithRelationInput = {
   role?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  followingMangas?: Prisma.MangaFollowerOrderByRelationAggregateInput
+  readingHistory?: Prisma.ReadingHistoryOrderByRelationAggregateInput
+  authorProfile?: Prisma.AuthorOrderByWithRelationInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -210,6 +216,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  followingMangas?: Prisma.MangaFollowerListRelationFilter
+  readingHistory?: Prisma.ReadingHistoryListRelationFilter
+  authorProfile?: Prisma.XOR<Prisma.AuthorNullableScalarRelationFilter, Prisma.AuthorWhereInput> | null
 }, "id" | "username">
 
 export type UserOrderByWithAggregationInput = {
@@ -243,6 +252,9 @@ export type UserCreateInput = {
   role?: $Enums.Role
   createdAt?: Date | string
   updatedAt?: Date | string
+  followingMangas?: Prisma.MangaFollowerCreateNestedManyWithoutFollowerInput
+  readingHistory?: Prisma.ReadingHistoryCreateNestedManyWithoutUserInput
+  authorProfile?: Prisma.AuthorCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -252,6 +264,9 @@ export type UserUncheckedCreateInput = {
   role?: $Enums.Role
   createdAt?: Date | string
   updatedAt?: Date | string
+  followingMangas?: Prisma.MangaFollowerUncheckedCreateNestedManyWithoutFollowerInput
+  readingHistory?: Prisma.ReadingHistoryUncheckedCreateNestedManyWithoutUserInput
+  authorProfile?: Prisma.AuthorUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -261,6 +276,9 @@ export type UserUpdateInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  followingMangas?: Prisma.MangaFollowerUpdateManyWithoutFollowerNestedInput
+  readingHistory?: Prisma.ReadingHistoryUpdateManyWithoutUserNestedInput
+  authorProfile?: Prisma.AuthorUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -270,6 +288,9 @@ export type UserUncheckedUpdateInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  followingMangas?: Prisma.MangaFollowerUncheckedUpdateManyWithoutFollowerNestedInput
+  readingHistory?: Prisma.ReadingHistoryUncheckedUpdateManyWithoutUserNestedInput
+  authorProfile?: Prisma.AuthorUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -326,6 +347,16 @@ export type UserMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
+export type UserNullableScalarRelationFilter = {
+  is?: Prisma.UserWhereInput | null
+  isNot?: Prisma.UserWhereInput | null
+}
+
+export type UserScalarRelationFilter = {
+  is?: Prisma.UserWhereInput
+  isNot?: Prisma.UserWhereInput
+}
+
 export type StringFieldUpdateOperationsInput = {
   set?: string
 }
@@ -338,6 +369,268 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
+export type UserCreateNestedOneWithoutAuthorProfileInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAuthorProfileInput, Prisma.UserUncheckedCreateWithoutAuthorProfileInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuthorProfileInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutAuthorProfileNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAuthorProfileInput, Prisma.UserUncheckedCreateWithoutAuthorProfileInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuthorProfileInput
+  upsert?: Prisma.UserUpsertWithoutAuthorProfileInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAuthorProfileInput, Prisma.UserUpdateWithoutAuthorProfileInput>, Prisma.UserUncheckedUpdateWithoutAuthorProfileInput>
+}
+
+export type UserCreateNestedOneWithoutFollowingMangasInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFollowingMangasInput, Prisma.UserUncheckedCreateWithoutFollowingMangasInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFollowingMangasInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutFollowingMangasNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFollowingMangasInput, Prisma.UserUncheckedCreateWithoutFollowingMangasInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFollowingMangasInput
+  upsert?: Prisma.UserUpsertWithoutFollowingMangasInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFollowingMangasInput, Prisma.UserUpdateWithoutFollowingMangasInput>, Prisma.UserUncheckedUpdateWithoutFollowingMangasInput>
+}
+
+export type UserCreateNestedOneWithoutReadingHistoryInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReadingHistoryInput, Prisma.UserUncheckedCreateWithoutReadingHistoryInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReadingHistoryInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutReadingHistoryNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReadingHistoryInput, Prisma.UserUncheckedCreateWithoutReadingHistoryInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReadingHistoryInput
+  upsert?: Prisma.UserUpsertWithoutReadingHistoryInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReadingHistoryInput, Prisma.UserUpdateWithoutReadingHistoryInput>, Prisma.UserUncheckedUpdateWithoutReadingHistoryInput>
+}
+
+export type UserCreateWithoutAuthorProfileInput = {
+  id?: string
+  username: string
+  password: string
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  followingMangas?: Prisma.MangaFollowerCreateNestedManyWithoutFollowerInput
+  readingHistory?: Prisma.ReadingHistoryCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutAuthorProfileInput = {
+  id?: string
+  username: string
+  password: string
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  followingMangas?: Prisma.MangaFollowerUncheckedCreateNestedManyWithoutFollowerInput
+  readingHistory?: Prisma.ReadingHistoryUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutAuthorProfileInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAuthorProfileInput, Prisma.UserUncheckedCreateWithoutAuthorProfileInput>
+}
+
+export type UserUpsertWithoutAuthorProfileInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAuthorProfileInput, Prisma.UserUncheckedUpdateWithoutAuthorProfileInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAuthorProfileInput, Prisma.UserUncheckedCreateWithoutAuthorProfileInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAuthorProfileInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAuthorProfileInput, Prisma.UserUncheckedUpdateWithoutAuthorProfileInput>
+}
+
+export type UserUpdateWithoutAuthorProfileInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  followingMangas?: Prisma.MangaFollowerUpdateManyWithoutFollowerNestedInput
+  readingHistory?: Prisma.ReadingHistoryUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAuthorProfileInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  followingMangas?: Prisma.MangaFollowerUncheckedUpdateManyWithoutFollowerNestedInput
+  readingHistory?: Prisma.ReadingHistoryUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutFollowingMangasInput = {
+  id?: string
+  username: string
+  password: string
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  readingHistory?: Prisma.ReadingHistoryCreateNestedManyWithoutUserInput
+  authorProfile?: Prisma.AuthorCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutFollowingMangasInput = {
+  id?: string
+  username: string
+  password: string
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  readingHistory?: Prisma.ReadingHistoryUncheckedCreateNestedManyWithoutUserInput
+  authorProfile?: Prisma.AuthorUncheckedCreateNestedOneWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutFollowingMangasInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutFollowingMangasInput, Prisma.UserUncheckedCreateWithoutFollowingMangasInput>
+}
+
+export type UserUpsertWithoutFollowingMangasInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutFollowingMangasInput, Prisma.UserUncheckedUpdateWithoutFollowingMangasInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutFollowingMangasInput, Prisma.UserUncheckedCreateWithoutFollowingMangasInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutFollowingMangasInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutFollowingMangasInput, Prisma.UserUncheckedUpdateWithoutFollowingMangasInput>
+}
+
+export type UserUpdateWithoutFollowingMangasInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  readingHistory?: Prisma.ReadingHistoryUpdateManyWithoutUserNestedInput
+  authorProfile?: Prisma.AuthorUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutFollowingMangasInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  readingHistory?: Prisma.ReadingHistoryUncheckedUpdateManyWithoutUserNestedInput
+  authorProfile?: Prisma.AuthorUncheckedUpdateOneWithoutUserNestedInput
+}
+
+export type UserCreateWithoutReadingHistoryInput = {
+  id?: string
+  username: string
+  password: string
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  followingMangas?: Prisma.MangaFollowerCreateNestedManyWithoutFollowerInput
+  authorProfile?: Prisma.AuthorCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutReadingHistoryInput = {
+  id?: string
+  username: string
+  password: string
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  followingMangas?: Prisma.MangaFollowerUncheckedCreateNestedManyWithoutFollowerInput
+  authorProfile?: Prisma.AuthorUncheckedCreateNestedOneWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutReadingHistoryInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutReadingHistoryInput, Prisma.UserUncheckedCreateWithoutReadingHistoryInput>
+}
+
+export type UserUpsertWithoutReadingHistoryInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutReadingHistoryInput, Prisma.UserUncheckedUpdateWithoutReadingHistoryInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutReadingHistoryInput, Prisma.UserUncheckedCreateWithoutReadingHistoryInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutReadingHistoryInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutReadingHistoryInput, Prisma.UserUncheckedUpdateWithoutReadingHistoryInput>
+}
+
+export type UserUpdateWithoutReadingHistoryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  followingMangas?: Prisma.MangaFollowerUpdateManyWithoutFollowerNestedInput
+  authorProfile?: Prisma.AuthorUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutReadingHistoryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  followingMangas?: Prisma.MangaFollowerUncheckedUpdateManyWithoutFollowerNestedInput
+  authorProfile?: Prisma.AuthorUncheckedUpdateOneWithoutUserNestedInput
+}
+
+
+/**
+ * Count Type UserCountOutputType
+ */
+
+export type UserCountOutputType = {
+  followingMangas: number
+  readingHistory: number
+}
+
+export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  followingMangas?: boolean | UserCountOutputTypeCountFollowingMangasArgs
+  readingHistory?: boolean | UserCountOutputTypeCountReadingHistoryArgs
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserCountOutputType
+   */
+  select?: Prisma.UserCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountFollowingMangasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MangaFollowerWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountReadingHistoryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReadingHistoryWhereInput
+}
 
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -347,6 +640,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   role?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  followingMangas?: boolean | Prisma.User$followingMangasArgs<ExtArgs>
+  readingHistory?: boolean | Prisma.User$readingHistoryArgs<ExtArgs>
+  authorProfile?: boolean | Prisma.User$authorProfileArgs<ExtArgs>
+  _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -377,10 +674,22 @@ export type UserSelectScalar = {
 }
 
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "username" | "password" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  followingMangas?: boolean | Prisma.User$followingMangasArgs<ExtArgs>
+  readingHistory?: boolean | Prisma.User$readingHistoryArgs<ExtArgs>
+  authorProfile?: boolean | Prisma.User$authorProfileArgs<ExtArgs>
+  _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
-  objects: {}
+  objects: {
+    followingMangas: Prisma.$MangaFollowerPayload<ExtArgs>[]
+    readingHistory: Prisma.$ReadingHistoryPayload<ExtArgs>[]
+    authorProfile: Prisma.$AuthorPayload<ExtArgs> | null
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     username: string
@@ -785,6 +1094,9 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  followingMangas<T extends Prisma.User$followingMangasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$followingMangasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MangaFollowerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  readingHistory<T extends Prisma.User$readingHistoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$readingHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReadingHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  authorProfile<T extends Prisma.User$authorProfileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$authorProfileArgs<ExtArgs>>): Prisma.Prisma__AuthorClient<runtime.Types.Result.GetResult<Prisma.$AuthorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -837,6 +1149,10 @@ export type UserFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Internal
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * Filter, which User to fetch.
    */
   where: Prisma.UserWhereUniqueInput
@@ -855,6 +1171,10 @@ export type UserFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * Filter, which User to fetch.
    */
   where: Prisma.UserWhereUniqueInput
@@ -872,6 +1192,10 @@ export type UserFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
   /**
    * Filter, which User to fetch.
    */
@@ -921,6 +1245,10 @@ export type UserFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * Filter, which User to fetch.
    */
   where?: Prisma.UserWhereInput
@@ -969,6 +1297,10 @@ export type UserFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * Filter, which Users to fetch.
    */
   where?: Prisma.UserWhereInput
@@ -1011,6 +1343,10 @@ export type UserCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
   /**
    * The data needed to create a User.
    */
@@ -1059,6 +1395,10 @@ export type UserUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
   /**
    * The data needed to update a User.
    */
@@ -1126,6 +1466,10 @@ export type UserUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * The filter to search for the User to update in case it exists.
    */
   where: Prisma.UserWhereUniqueInput
@@ -1152,6 +1496,10 @@ export type UserDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * Filter which User to delete.
    */
   where: Prisma.UserWhereUniqueInput
@@ -1172,6 +1520,73 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
+ * User.followingMangas
+ */
+export type User$followingMangasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MangaFollower
+   */
+  select?: Prisma.MangaFollowerSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MangaFollower
+   */
+  omit?: Prisma.MangaFollowerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MangaFollowerInclude<ExtArgs> | null
+  where?: Prisma.MangaFollowerWhereInput
+  orderBy?: Prisma.MangaFollowerOrderByWithRelationInput | Prisma.MangaFollowerOrderByWithRelationInput[]
+  cursor?: Prisma.MangaFollowerWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MangaFollowerScalarFieldEnum | Prisma.MangaFollowerScalarFieldEnum[]
+}
+
+/**
+ * User.readingHistory
+ */
+export type User$readingHistoryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ReadingHistory
+   */
+  select?: Prisma.ReadingHistorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ReadingHistory
+   */
+  omit?: Prisma.ReadingHistoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReadingHistoryInclude<ExtArgs> | null
+  where?: Prisma.ReadingHistoryWhereInput
+  orderBy?: Prisma.ReadingHistoryOrderByWithRelationInput | Prisma.ReadingHistoryOrderByWithRelationInput[]
+  cursor?: Prisma.ReadingHistoryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReadingHistoryScalarFieldEnum | Prisma.ReadingHistoryScalarFieldEnum[]
+}
+
+/**
+ * User.authorProfile
+ */
+export type User$authorProfileArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Author
+   */
+  select?: Prisma.AuthorSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Author
+   */
+  omit?: Prisma.AuthorOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AuthorInclude<ExtArgs> | null
+  where?: Prisma.AuthorWhereInput
+}
+
+/**
  * User without action
  */
 export type UserDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1183,4 +1598,8 @@ export type UserDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
 }

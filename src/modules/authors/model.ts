@@ -2,9 +2,15 @@ import {
 	AuthorPlainInputCreate,
 	AuthorPlainInputUpdate,
 } from '@db/schemas/Author'
-import Elysia from 'elysia'
+import Elysia, { t } from 'elysia'
 
 export const AuthorModel = new Elysia({ name: 'Model.Author' }).model({
-	'author.create': AuthorPlainInputCreate,
-	'author.update': AuthorPlainInputUpdate,
+	'author.create': t.Composite([
+		AuthorPlainInputCreate,
+		t.Object({ userId: t.Optional(t.String()) }),
+	]),
+	'author.update': t.Composite([
+		AuthorPlainInputUpdate,
+		t.Object({ userId: t.Optional(t.String()) }),
+	]),
 })

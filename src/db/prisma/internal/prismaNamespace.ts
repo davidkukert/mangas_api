@@ -399,7 +399,9 @@ export const ModelName = {
   Author: 'Author',
   Tag: 'Tag',
   Chapter: 'Chapter',
-  MangaAuthor: 'MangaAuthor'
+  MangaAuthor: 'MangaAuthor',
+  MangaFollower: 'MangaFollower',
+  ReadingHistory: 'ReadingHistory'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -415,7 +417,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "manga" | "author" | "tag" | "chapter" | "mangaAuthor"
+    modelProps: "user" | "manga" | "author" | "tag" | "chapter" | "mangaAuthor" | "mangaFollower" | "readingHistory"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -863,6 +865,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    MangaFollower: {
+      payload: Prisma.$MangaFollowerPayload<ExtArgs>
+      fields: Prisma.MangaFollowerFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MangaFollowerFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaFollowerPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MangaFollowerFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaFollowerPayload>
+        }
+        findFirst: {
+          args: Prisma.MangaFollowerFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaFollowerPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MangaFollowerFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaFollowerPayload>
+        }
+        findMany: {
+          args: Prisma.MangaFollowerFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaFollowerPayload>[]
+        }
+        create: {
+          args: Prisma.MangaFollowerCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaFollowerPayload>
+        }
+        createMany: {
+          args: Prisma.MangaFollowerCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MangaFollowerCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaFollowerPayload>[]
+        }
+        delete: {
+          args: Prisma.MangaFollowerDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaFollowerPayload>
+        }
+        update: {
+          args: Prisma.MangaFollowerUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaFollowerPayload>
+        }
+        deleteMany: {
+          args: Prisma.MangaFollowerDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MangaFollowerUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MangaFollowerUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaFollowerPayload>[]
+        }
+        upsert: {
+          args: Prisma.MangaFollowerUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MangaFollowerPayload>
+        }
+        aggregate: {
+          args: Prisma.MangaFollowerAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMangaFollower>
+        }
+        groupBy: {
+          args: Prisma.MangaFollowerGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MangaFollowerGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MangaFollowerCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MangaFollowerCountAggregateOutputType> | number
+        }
+      }
+    }
+    ReadingHistory: {
+      payload: Prisma.$ReadingHistoryPayload<ExtArgs>
+      fields: Prisma.ReadingHistoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ReadingHistoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReadingHistoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ReadingHistoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReadingHistoryPayload>
+        }
+        findFirst: {
+          args: Prisma.ReadingHistoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReadingHistoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ReadingHistoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReadingHistoryPayload>
+        }
+        findMany: {
+          args: Prisma.ReadingHistoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReadingHistoryPayload>[]
+        }
+        create: {
+          args: Prisma.ReadingHistoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReadingHistoryPayload>
+        }
+        createMany: {
+          args: Prisma.ReadingHistoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ReadingHistoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReadingHistoryPayload>[]
+        }
+        delete: {
+          args: Prisma.ReadingHistoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReadingHistoryPayload>
+        }
+        update: {
+          args: Prisma.ReadingHistoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReadingHistoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.ReadingHistoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ReadingHistoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ReadingHistoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReadingHistoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.ReadingHistoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReadingHistoryPayload>
+        }
+        aggregate: {
+          args: Prisma.ReadingHistoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateReadingHistory>
+        }
+        groupBy: {
+          args: Prisma.ReadingHistoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReadingHistoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ReadingHistoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReadingHistoryCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -938,7 +1088,8 @@ export const AuthorScalarFieldEnum = {
   biography: 'biography',
   socialLinks: 'socialLinks',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  userId: 'userId'
 } as const
 
 export type AuthorScalarFieldEnum = (typeof AuthorScalarFieldEnum)[keyof typeof AuthorScalarFieldEnum]
@@ -977,6 +1128,27 @@ export const MangaAuthorScalarFieldEnum = {
 } as const
 
 export type MangaAuthorScalarFieldEnum = (typeof MangaAuthorScalarFieldEnum)[keyof typeof MangaAuthorScalarFieldEnum]
+
+
+export const MangaFollowerScalarFieldEnum = {
+  id: 'id',
+  mangaId: 'mangaId',
+  followerId: 'followerId',
+  status: 'status'
+} as const
+
+export type MangaFollowerScalarFieldEnum = (typeof MangaFollowerScalarFieldEnum)[keyof typeof MangaFollowerScalarFieldEnum]
+
+
+export const ReadingHistoryScalarFieldEnum = {
+  id: 'id',
+  chapterId: 'chapterId',
+  userId: 'userId',
+  readingAt: 'readingAt',
+  page: 'page'
+} as const
+
+export type ReadingHistoryScalarFieldEnum = (typeof ReadingHistoryScalarFieldEnum)[keyof typeof ReadingHistoryScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1181,6 +1353,20 @@ export type ListEnumMangaAuthorRoleEnumFieldRefInput<$PrismaModel> = FieldRefInp
 
 
 /**
+ * Reference to a field of type 'FollowStatusEnum'
+ */
+export type EnumFollowStatusEnumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FollowStatusEnum'>
+    
+
+
+/**
+ * Reference to a field of type 'FollowStatusEnum[]'
+ */
+export type ListEnumFollowStatusEnumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FollowStatusEnum[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -1278,6 +1464,8 @@ export type GlobalOmitConfig = {
   tag?: Prisma.TagOmit
   chapter?: Prisma.ChapterOmit
   mangaAuthor?: Prisma.MangaAuthorOmit
+  mangaFollower?: Prisma.MangaFollowerOmit
+  readingHistory?: Prisma.ReadingHistoryOmit
 }
 
 /* Types for Logging */

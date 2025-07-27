@@ -2,6 +2,7 @@ import { setup } from '@app/setup'
 import { Prisma } from '@db/prisma/client'
 import Elysia from 'elysia'
 import { mangasAuthors } from './authors'
+import { mangaFollows } from './follow'
 import { MangaModel } from './model'
 import { mangasTags } from './tags'
 
@@ -10,6 +11,7 @@ export const mangas = new Elysia({ name: 'Module.Mangas', prefix: '/mangas' })
 	.use(setup)
 	.use(mangasAuthors)
 	.use(mangasTags)
+	.use(mangaFollows)
 	.get(
 		'/',
 		async ({ db }) => {

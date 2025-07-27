@@ -72,6 +72,19 @@ export const ChapterRelations = t.Object(
       },
       { additionalProperties: false },
     ),
+    readingHistory: t.Array(
+      t.Object(
+        {
+          id: t.Integer(),
+          chapterId: t.String(),
+          userId: t.String(),
+          readingAt: t.Date(),
+          page: __nullable__(t.Integer()),
+        },
+        { additionalProperties: false },
+      ),
+      { additionalProperties: false },
+    ),
   },
   { additionalProperties: false },
 );
@@ -111,6 +124,22 @@ export const ChapterRelationsInputCreate = t.Object(
       },
       { additionalProperties: false },
     ),
+    readingHistory: t.Optional(
+      t.Object(
+        {
+          connect: t.Array(
+            t.Object(
+              {
+                id: t.Integer({ additionalProperties: false }),
+              },
+              { additionalProperties: false },
+            ),
+            { additionalProperties: false },
+          ),
+        },
+        { additionalProperties: false },
+      ),
+    ),
   },
   { additionalProperties: false },
 );
@@ -128,6 +157,31 @@ export const ChapterRelationsInputUpdate = t.Partial(
           ),
         },
         { additionalProperties: false },
+      ),
+      readingHistory: t.Partial(
+        t.Object(
+          {
+            connect: t.Array(
+              t.Object(
+                {
+                  id: t.Integer({ additionalProperties: false }),
+                },
+                { additionalProperties: false },
+              ),
+              { additionalProperties: false },
+            ),
+            disconnect: t.Array(
+              t.Object(
+                {
+                  id: t.Integer({ additionalProperties: false }),
+                },
+                { additionalProperties: false },
+              ),
+              { additionalProperties: false },
+            ),
+          },
+          { additionalProperties: false },
+        ),
       ),
     },
     { additionalProperties: false },
@@ -236,6 +290,7 @@ export const ChapterSelect = t.Partial(
       manga: t.Boolean(),
       createdAt: t.Boolean(),
       updatedAt: t.Boolean(),
+      readingHistory: t.Boolean(),
       _count: t.Boolean(),
     },
     { additionalProperties: false },
@@ -244,7 +299,7 @@ export const ChapterSelect = t.Partial(
 
 export const ChapterInclude = t.Partial(
   t.Object(
-    { manga: t.Boolean(), _count: t.Boolean() },
+    { manga: t.Boolean(), readingHistory: t.Boolean(), _count: t.Boolean() },
     { additionalProperties: false },
   ),
 );

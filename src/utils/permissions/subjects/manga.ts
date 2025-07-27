@@ -12,6 +12,8 @@ export const mangaSubject = z.tuple([
 		z.literal('remove_author'),
 		z.literal('add_tag'),
 		z.literal('remove_tag'),
+		z.literal('follow'),
+		z.literal('unfollow'),
 		z.literal('manage'),
 	]),
 	z.union([z.literal('Manga')]),

@@ -18,6 +18,8 @@ export const permissions: Record<Role, PermissionsByRole> = {
 	},
 	reader(user, { can }) {
 		can('read', 'all')
+		can(['follow', 'unfollow'], 'Manga')
+		can(['add_reading_history', 'remove_reading_history'], 'Chapter')
 		can(['update', 'delete'], 'User', {
 			id: {
 				$eq: user.id,

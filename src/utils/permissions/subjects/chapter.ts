@@ -8,6 +8,8 @@ export const chapterSubject = z.tuple([
 		z.literal('delete'),
 		z.literal('upload_pages'),
 		z.literal('delete_pages'),
+		z.literal('add_reading_history'),
+		z.literal('remove_reading_history'),
 		z.literal('manage'),
 	]),
 	z.union([z.literal('Chapter')]),

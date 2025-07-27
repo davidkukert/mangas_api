@@ -29,6 +29,7 @@ export type AuthorMinAggregateOutputType = {
   biography: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  userId: string | null
 }
 
 export type AuthorMaxAggregateOutputType = {
@@ -37,6 +38,7 @@ export type AuthorMaxAggregateOutputType = {
   biography: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  userId: string | null
 }
 
 export type AuthorCountAggregateOutputType = {
@@ -46,6 +48,7 @@ export type AuthorCountAggregateOutputType = {
   socialLinks: number
   createdAt: number
   updatedAt: number
+  userId: number
   _all: number
 }
 
@@ -56,6 +59,7 @@ export type AuthorMinAggregateInputType = {
   biography?: true
   createdAt?: true
   updatedAt?: true
+  userId?: true
 }
 
 export type AuthorMaxAggregateInputType = {
@@ -64,6 +68,7 @@ export type AuthorMaxAggregateInputType = {
   biography?: true
   createdAt?: true
   updatedAt?: true
+  userId?: true
 }
 
 export type AuthorCountAggregateInputType = {
@@ -73,6 +78,7 @@ export type AuthorCountAggregateInputType = {
   socialLinks?: true
   createdAt?: true
   updatedAt?: true
+  userId?: true
   _all?: true
 }
 
@@ -155,6 +161,7 @@ export type AuthorGroupByOutputType = {
   socialLinks: runtime.JsonValue | null
   createdAt: Date
   updatedAt: Date
+  userId: string | null
   _count: AuthorCountAggregateOutputType | null
   _min: AuthorMinAggregateOutputType | null
   _max: AuthorMaxAggregateOutputType | null
@@ -185,7 +192,9 @@ export type AuthorWhereInput = {
   socialLinks?: Prisma.JsonNullableFilter<"Author">
   createdAt?: Prisma.DateTimeFilter<"Author"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Author"> | Date | string
+  userId?: Prisma.StringNullableFilter<"Author"> | string | null
   mangas?: Prisma.MangaAuthorListRelationFilter
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type AuthorOrderByWithRelationInput = {
@@ -195,12 +204,15 @@ export type AuthorOrderByWithRelationInput = {
   socialLinks?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  userId?: Prisma.SortOrderInput | Prisma.SortOrder
   mangas?: Prisma.MangaAuthorOrderByRelationAggregateInput
+  user?: Prisma.UserOrderByWithRelationInput
 }
 
 export type AuthorWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   name?: string
+  userId?: string
   AND?: Prisma.AuthorWhereInput | Prisma.AuthorWhereInput[]
   OR?: Prisma.AuthorWhereInput[]
   NOT?: Prisma.AuthorWhereInput | Prisma.AuthorWhereInput[]
@@ -209,7 +221,8 @@ export type AuthorWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Author"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Author"> | Date | string
   mangas?: Prisma.MangaAuthorListRelationFilter
-}, "id" | "name">
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+}, "id" | "name" | "userId">
 
 export type AuthorOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -218,6 +231,7 @@ export type AuthorOrderByWithAggregationInput = {
   socialLinks?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  userId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.AuthorCountOrderByAggregateInput
   _max?: Prisma.AuthorMaxOrderByAggregateInput
   _min?: Prisma.AuthorMinOrderByAggregateInput
@@ -233,6 +247,7 @@ export type AuthorScalarWhereWithAggregatesInput = {
   socialLinks?: Prisma.JsonNullableWithAggregatesFilter<"Author">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Author"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Author"> | Date | string
+  userId?: Prisma.StringNullableWithAggregatesFilter<"Author"> | string | null
 }
 
 export type AuthorCreateInput = {
@@ -243,6 +258,7 @@ export type AuthorCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   mangas?: Prisma.MangaAuthorCreateNestedManyWithoutAuthorInput
+  user?: Prisma.UserCreateNestedOneWithoutAuthorProfileInput
 }
 
 export type AuthorUncheckedCreateInput = {
@@ -252,6 +268,7 @@ export type AuthorUncheckedCreateInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
+  userId?: string | null
   mangas?: Prisma.MangaAuthorUncheckedCreateNestedManyWithoutAuthorInput
 }
 
@@ -263,6 +280,7 @@ export type AuthorUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   mangas?: Prisma.MangaAuthorUpdateManyWithoutAuthorNestedInput
+  user?: Prisma.UserUpdateOneWithoutAuthorProfileNestedInput
 }
 
 export type AuthorUncheckedUpdateInput = {
@@ -272,6 +290,7 @@ export type AuthorUncheckedUpdateInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mangas?: Prisma.MangaAuthorUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
@@ -282,6 +301,7 @@ export type AuthorCreateManyInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
+  userId?: string | null
 }
 
 export type AuthorUpdateManyMutationInput = {
@@ -300,6 +320,12 @@ export type AuthorUncheckedUpdateManyInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type AuthorNullableScalarRelationFilter = {
+  is?: Prisma.AuthorWhereInput | null
+  isNot?: Prisma.AuthorWhereInput | null
 }
 
 export type AuthorCountOrderByAggregateInput = {
@@ -309,6 +335,7 @@ export type AuthorCountOrderByAggregateInput = {
   socialLinks?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
 }
 
 export type AuthorMaxOrderByAggregateInput = {
@@ -317,6 +344,7 @@ export type AuthorMaxOrderByAggregateInput = {
   biography?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
 }
 
 export type AuthorMinOrderByAggregateInput = {
@@ -325,11 +353,44 @@ export type AuthorMinOrderByAggregateInput = {
   biography?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
 }
 
 export type AuthorScalarRelationFilter = {
   is?: Prisma.AuthorWhereInput
   isNot?: Prisma.AuthorWhereInput
+}
+
+export type AuthorCreateNestedOneWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.AuthorCreateWithoutUserInput, Prisma.AuthorUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.AuthorCreateOrConnectWithoutUserInput
+  connect?: Prisma.AuthorWhereUniqueInput
+}
+
+export type AuthorUncheckedCreateNestedOneWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.AuthorCreateWithoutUserInput, Prisma.AuthorUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.AuthorCreateOrConnectWithoutUserInput
+  connect?: Prisma.AuthorWhereUniqueInput
+}
+
+export type AuthorUpdateOneWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.AuthorCreateWithoutUserInput, Prisma.AuthorUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.AuthorCreateOrConnectWithoutUserInput
+  upsert?: Prisma.AuthorUpsertWithoutUserInput
+  disconnect?: Prisma.AuthorWhereInput | boolean
+  delete?: Prisma.AuthorWhereInput | boolean
+  connect?: Prisma.AuthorWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AuthorUpdateToOneWithWhereWithoutUserInput, Prisma.AuthorUpdateWithoutUserInput>, Prisma.AuthorUncheckedUpdateWithoutUserInput>
+}
+
+export type AuthorUncheckedUpdateOneWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.AuthorCreateWithoutUserInput, Prisma.AuthorUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.AuthorCreateOrConnectWithoutUserInput
+  upsert?: Prisma.AuthorUpsertWithoutUserInput
+  disconnect?: Prisma.AuthorWhereInput | boolean
+  delete?: Prisma.AuthorWhereInput | boolean
+  connect?: Prisma.AuthorWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AuthorUpdateToOneWithWhereWithoutUserInput, Prisma.AuthorUpdateWithoutUserInput>, Prisma.AuthorUncheckedUpdateWithoutUserInput>
 }
 
 export type AuthorCreateNestedOneWithoutMangasInput = {
@@ -346,6 +407,62 @@ export type AuthorUpdateOneRequiredWithoutMangasNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.AuthorUpdateToOneWithWhereWithoutMangasInput, Prisma.AuthorUpdateWithoutMangasInput>, Prisma.AuthorUncheckedUpdateWithoutMangasInput>
 }
 
+export type AuthorCreateWithoutUserInput = {
+  id?: string
+  name: string
+  biography?: string | null
+  socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  mangas?: Prisma.MangaAuthorCreateNestedManyWithoutAuthorInput
+}
+
+export type AuthorUncheckedCreateWithoutUserInput = {
+  id?: string
+  name: string
+  biography?: string | null
+  socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  mangas?: Prisma.MangaAuthorUncheckedCreateNestedManyWithoutAuthorInput
+}
+
+export type AuthorCreateOrConnectWithoutUserInput = {
+  where: Prisma.AuthorWhereUniqueInput
+  create: Prisma.XOR<Prisma.AuthorCreateWithoutUserInput, Prisma.AuthorUncheckedCreateWithoutUserInput>
+}
+
+export type AuthorUpsertWithoutUserInput = {
+  update: Prisma.XOR<Prisma.AuthorUpdateWithoutUserInput, Prisma.AuthorUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.AuthorCreateWithoutUserInput, Prisma.AuthorUncheckedCreateWithoutUserInput>
+  where?: Prisma.AuthorWhereInput
+}
+
+export type AuthorUpdateToOneWithWhereWithoutUserInput = {
+  where?: Prisma.AuthorWhereInput
+  data: Prisma.XOR<Prisma.AuthorUpdateWithoutUserInput, Prisma.AuthorUncheckedUpdateWithoutUserInput>
+}
+
+export type AuthorUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  biography?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mangas?: Prisma.MangaAuthorUpdateManyWithoutAuthorNestedInput
+}
+
+export type AuthorUncheckedUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  biography?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mangas?: Prisma.MangaAuthorUncheckedUpdateManyWithoutAuthorNestedInput
+}
+
 export type AuthorCreateWithoutMangasInput = {
   id?: string
   name: string
@@ -353,6 +470,7 @@ export type AuthorCreateWithoutMangasInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
+  user?: Prisma.UserCreateNestedOneWithoutAuthorProfileInput
 }
 
 export type AuthorUncheckedCreateWithoutMangasInput = {
@@ -362,6 +480,7 @@ export type AuthorUncheckedCreateWithoutMangasInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
+  userId?: string | null
 }
 
 export type AuthorCreateOrConnectWithoutMangasInput = {
@@ -387,6 +506,7 @@ export type AuthorUpdateWithoutMangasInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneWithoutAuthorProfileNestedInput
 }
 
 export type AuthorUncheckedUpdateWithoutMangasInput = {
@@ -396,6 +516,7 @@ export type AuthorUncheckedUpdateWithoutMangasInput = {
   socialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -436,7 +557,9 @@ export type AuthorSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   socialLinks?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  userId?: boolean
   mangas?: boolean | Prisma.Author$mangasArgs<ExtArgs>
+  user?: boolean | Prisma.Author$userArgs<ExtArgs>
   _count?: boolean | Prisma.AuthorCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["author"]>
 
@@ -447,6 +570,8 @@ export type AuthorSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   socialLinks?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  userId?: boolean
+  user?: boolean | Prisma.Author$userArgs<ExtArgs>
 }, ExtArgs["result"]["author"]>
 
 export type AuthorSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -456,6 +581,8 @@ export type AuthorSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   socialLinks?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  userId?: boolean
+  user?: boolean | Prisma.Author$userArgs<ExtArgs>
 }, ExtArgs["result"]["author"]>
 
 export type AuthorSelectScalar = {
@@ -465,20 +592,27 @@ export type AuthorSelectScalar = {
   socialLinks?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  userId?: boolean
 }
 
-export type AuthorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "biography" | "socialLinks" | "createdAt" | "updatedAt", ExtArgs["result"]["author"]>
+export type AuthorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "biography" | "socialLinks" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["author"]>
 export type AuthorInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   mangas?: boolean | Prisma.Author$mangasArgs<ExtArgs>
+  user?: boolean | Prisma.Author$userArgs<ExtArgs>
   _count?: boolean | Prisma.AuthorCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type AuthorIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type AuthorIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type AuthorIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.Author$userArgs<ExtArgs>
+}
+export type AuthorIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.Author$userArgs<ExtArgs>
+}
 
 export type $AuthorPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Author"
   objects: {
     mangas: Prisma.$MangaAuthorPayload<ExtArgs>[]
+    user: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -487,6 +621,7 @@ export type $AuthorPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     socialLinks: runtime.JsonValue | null
     createdAt: Date
     updatedAt: Date
+    userId: string | null
   }, ExtArgs["result"]["author"]>
   composites: {}
 }
@@ -882,6 +1017,7 @@ readonly fields: AuthorFieldRefs;
 export interface Prisma__AuthorClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   mangas<T extends Prisma.Author$mangasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Author$mangasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MangaAuthorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  user<T extends Prisma.Author$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Author$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -917,6 +1053,7 @@ export interface AuthorFieldRefs {
   readonly socialLinks: Prisma.FieldRef<"Author", 'Json'>
   readonly createdAt: Prisma.FieldRef<"Author", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Author", 'DateTime'>
+  readonly userId: Prisma.FieldRef<"Author", 'String'>
 }
     
 
@@ -1166,6 +1303,10 @@ export type AuthorCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensio
    */
   data: Prisma.AuthorCreateManyInput | Prisma.AuthorCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AuthorIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1236,6 +1377,10 @@ export type AuthorUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensio
    * Limit how many Authors to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AuthorIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1326,6 +1471,25 @@ export type Author$mangasArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.MangaAuthorScalarFieldEnum | Prisma.MangaAuthorScalarFieldEnum[]
+}
+
+/**
+ * Author.user
+ */
+export type Author$userArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

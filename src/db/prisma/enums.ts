@@ -71,3 +71,14 @@ export const MangaAuthorRoleEnum = {
 } as const
 
 export type MangaAuthorRoleEnum = (typeof MangaAuthorRoleEnum)[keyof typeof MangaAuthorRoleEnum]
+
+
+export const FollowStatusEnum = {
+  reading: 'reading',
+  completed: 'completed',
+  onHold: 'onHold',
+  dropped: 'dropped',
+  planToRead: 'planToRead'
+} as const
+
+export type FollowStatusEnum = (typeof FollowStatusEnum)[keyof typeof FollowStatusEnum]

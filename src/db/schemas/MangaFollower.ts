@@ -4,19 +4,26 @@ import { __transformDate__ } from "./__transformDate__";
 
 import { __nullable__ } from "./__nullable__";
 
-export const MangaAuthorPlain = t.Object(
+export const MangaFollowerPlain = t.Object(
   {
     id: t.Integer(),
     mangaId: t.String(),
-    authorId: t.String(),
-    role: t.Union([t.Literal("author"), t.Literal("artist")], {
-      additionalProperties: false,
-    }),
+    followerId: t.String(),
+    status: t.Union(
+      [
+        t.Literal("reading"),
+        t.Literal("completed"),
+        t.Literal("onHold"),
+        t.Literal("dropped"),
+        t.Literal("planToRead"),
+      ],
+      { additionalProperties: false },
+    ),
   },
   { additionalProperties: false },
 );
 
-export const MangaAuthorRelations = t.Object(
+export const MangaFollowerRelations = t.Object(
   {
     manga: t.Object(
       {
@@ -69,15 +76,16 @@ export const MangaAuthorRelations = t.Object(
       },
       { additionalProperties: false },
     ),
-    author: t.Object(
+    follower: t.Object(
       {
         id: t.String(),
-        name: t.String(),
-        biography: __nullable__(t.String()),
-        socialLinks: __nullable__(t.Any()),
+        username: t.String(),
+        password: t.String(),
+        role: t.Union([t.Literal("reader"), t.Literal("admin")], {
+          additionalProperties: false,
+        }),
         createdAt: t.Date(),
         updatedAt: t.Date(),
-        userId: __nullable__(t.String()),
       },
       { additionalProperties: false },
     ),
@@ -85,27 +93,43 @@ export const MangaAuthorRelations = t.Object(
   { additionalProperties: false },
 );
 
-export const MangaAuthorPlainInputCreate = t.Object(
+export const MangaFollowerPlainInputCreate = t.Object(
   {
-    role: t.Union([t.Literal("author"), t.Literal("artist")], {
-      additionalProperties: false,
-    }),
-  },
-  { additionalProperties: false },
-);
-
-export const MangaAuthorPlainInputUpdate = t.Object(
-  {
-    role: t.Optional(
-      t.Union([t.Literal("author"), t.Literal("artist")], {
-        additionalProperties: false,
-      }),
+    status: t.Optional(
+      t.Union(
+        [
+          t.Literal("reading"),
+          t.Literal("completed"),
+          t.Literal("onHold"),
+          t.Literal("dropped"),
+          t.Literal("planToRead"),
+        ],
+        { additionalProperties: false },
+      ),
     ),
   },
   { additionalProperties: false },
 );
 
-export const MangaAuthorRelationsInputCreate = t.Object(
+export const MangaFollowerPlainInputUpdate = t.Object(
+  {
+    status: t.Optional(
+      t.Union(
+        [
+          t.Literal("reading"),
+          t.Literal("completed"),
+          t.Literal("onHold"),
+          t.Literal("dropped"),
+          t.Literal("planToRead"),
+        ],
+        { additionalProperties: false },
+      ),
+    ),
+  },
+  { additionalProperties: false },
+);
+
+export const MangaFollowerRelationsInputCreate = t.Object(
   {
     manga: t.Object(
       {
@@ -118,7 +142,7 @@ export const MangaAuthorRelationsInputCreate = t.Object(
       },
       { additionalProperties: false },
     ),
-    author: t.Object(
+    follower: t.Object(
       {
         connect: t.Object(
           {
@@ -133,7 +157,7 @@ export const MangaAuthorRelationsInputCreate = t.Object(
   { additionalProperties: false },
 );
 
-export const MangaAuthorRelationsInputUpdate = t.Partial(
+export const MangaFollowerRelationsInputUpdate = t.Partial(
   t.Object(
     {
       manga: t.Object(
@@ -147,7 +171,7 @@ export const MangaAuthorRelationsInputUpdate = t.Partial(
         },
         { additionalProperties: false },
       ),
-      author: t.Object(
+      follower: t.Object(
         {
           connect: t.Object(
             {
@@ -163,7 +187,7 @@ export const MangaAuthorRelationsInputUpdate = t.Partial(
   ),
 );
 
-export const MangaAuthorWhere = t.Partial(
+export const MangaFollowerWhere = t.Partial(
   t.Recursive(
     (Self) =>
       t.Object(
@@ -173,18 +197,25 @@ export const MangaAuthorWhere = t.Partial(
           OR: t.Array(Self, { additionalProperties: false }),
           id: t.Integer(),
           mangaId: t.String(),
-          authorId: t.String(),
-          role: t.Union([t.Literal("author"), t.Literal("artist")], {
-            additionalProperties: false,
-          }),
+          followerId: t.String(),
+          status: t.Union(
+            [
+              t.Literal("reading"),
+              t.Literal("completed"),
+              t.Literal("onHold"),
+              t.Literal("dropped"),
+              t.Literal("planToRead"),
+            ],
+            { additionalProperties: false },
+          ),
         },
         { additionalProperties: false },
       ),
-    { $id: "MangaAuthor" },
+    { $id: "MangaFollower" },
   ),
 );
 
-export const MangaAuthorWhereUnique = t.Recursive(
+export const MangaFollowerWhereUnique = t.Recursive(
   (Self) =>
     t.Intersect(
       [
@@ -192,8 +223,8 @@ export const MangaAuthorWhereUnique = t.Recursive(
           t.Object(
             {
               id: t.Integer(),
-              mangaId_authorId: t.Object(
-                { mangaId: t.String(), authorId: t.String() },
+              mangaId_followerId: t.Object(
+                { mangaId: t.String(), followerId: t.String() },
                 { additionalProperties: false },
               ),
             },
@@ -205,8 +236,8 @@ export const MangaAuthorWhereUnique = t.Recursive(
           [
             t.Object({ id: t.Integer() }),
             t.Object({
-              mangaId_authorId: t.Object(
-                { mangaId: t.String(), authorId: t.String() },
+              mangaId_followerId: t.Object(
+                { mangaId: t.String(), followerId: t.String() },
                 { additionalProperties: false },
               ),
             }),
@@ -232,10 +263,17 @@ export const MangaAuthorWhereUnique = t.Recursive(
             {
               id: t.Integer(),
               mangaId: t.String(),
-              authorId: t.String(),
-              role: t.Union([t.Literal("author"), t.Literal("artist")], {
-                additionalProperties: false,
-              }),
+              followerId: t.String(),
+              status: t.Union(
+                [
+                  t.Literal("reading"),
+                  t.Literal("completed"),
+                  t.Literal("onHold"),
+                  t.Literal("dropped"),
+                  t.Literal("planToRead"),
+                ],
+                { additionalProperties: false },
+              ),
             },
             { additionalProperties: false },
           ),
@@ -243,37 +281,37 @@ export const MangaAuthorWhereUnique = t.Recursive(
       ],
       { additionalProperties: false },
     ),
-  { $id: "MangaAuthor" },
+  { $id: "MangaFollower" },
 );
 
-export const MangaAuthorSelect = t.Partial(
+export const MangaFollowerSelect = t.Partial(
   t.Object(
     {
       id: t.Boolean(),
       mangaId: t.Boolean(),
-      authorId: t.Boolean(),
-      role: t.Boolean(),
+      followerId: t.Boolean(),
+      status: t.Boolean(),
       manga: t.Boolean(),
-      author: t.Boolean(),
+      follower: t.Boolean(),
       _count: t.Boolean(),
     },
     { additionalProperties: false },
   ),
 );
 
-export const MangaAuthorInclude = t.Partial(
+export const MangaFollowerInclude = t.Partial(
   t.Object(
     {
-      role: t.Boolean(),
+      status: t.Boolean(),
       manga: t.Boolean(),
-      author: t.Boolean(),
+      follower: t.Boolean(),
       _count: t.Boolean(),
     },
     { additionalProperties: false },
   ),
 );
 
-export const MangaAuthorOrderBy = t.Partial(
+export const MangaFollowerOrderBy = t.Partial(
   t.Object(
     {
       id: t.Union([t.Literal("asc"), t.Literal("desc")], {
@@ -282,7 +320,7 @@ export const MangaAuthorOrderBy = t.Partial(
       mangaId: t.Union([t.Literal("asc"), t.Literal("desc")], {
         additionalProperties: false,
       }),
-      authorId: t.Union([t.Literal("asc"), t.Literal("desc")], {
+      followerId: t.Union([t.Literal("asc"), t.Literal("desc")], {
         additionalProperties: false,
       }),
     },
@@ -290,17 +328,17 @@ export const MangaAuthorOrderBy = t.Partial(
   ),
 );
 
-export const MangaAuthor = t.Composite(
-  [MangaAuthorPlain, MangaAuthorRelations],
+export const MangaFollower = t.Composite(
+  [MangaFollowerPlain, MangaFollowerRelations],
   { additionalProperties: false },
 );
 
-export const MangaAuthorInputCreate = t.Composite(
-  [MangaAuthorPlainInputCreate, MangaAuthorRelationsInputCreate],
+export const MangaFollowerInputCreate = t.Composite(
+  [MangaFollowerPlainInputCreate, MangaFollowerRelationsInputCreate],
   { additionalProperties: false },
 );
 
-export const MangaAuthorInputUpdate = t.Composite(
-  [MangaAuthorPlainInputUpdate, MangaAuthorRelationsInputUpdate],
+export const MangaFollowerInputUpdate = t.Composite(
+  [MangaFollowerPlainInputUpdate, MangaFollowerRelationsInputUpdate],
   { additionalProperties: false },
 );

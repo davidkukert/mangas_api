@@ -68,6 +68,16 @@ export type Chapter = Prisma.ChapterModel
  * 
  */
 export type MangaAuthor = Prisma.MangaAuthorModel
+/**
+ * Model MangaFollower
+ * 
+ */
+export type MangaFollower = Prisma.MangaFollowerModel
+/**
+ * Model ReadingHistory
+ * 
+ */
+export type ReadingHistory = Prisma.ReadingHistoryModel
 
 export type Role = $Enums.Role
 export const Role = $Enums.Role
@@ -89,3 +99,6 @@ export const TagGroupEnum = $Enums.TagGroupEnum
 
 export type MangaAuthorRoleEnum = $Enums.MangaAuthorRoleEnum
 export const MangaAuthorRoleEnum = $Enums.MangaAuthorRoleEnum
+
+export type FollowStatusEnum = $Enums.FollowStatusEnum
+export const FollowStatusEnum = $Enums.FollowStatusEnum

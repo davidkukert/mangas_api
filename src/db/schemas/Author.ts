@@ -12,6 +12,7 @@ export const AuthorPlain = t.Object(
     socialLinks: __nullable__(t.Any()),
     createdAt: t.Date(),
     updatedAt: t.Date(),
+    userId: __nullable__(t.String()),
   },
   { additionalProperties: false },
 );
@@ -31,6 +32,21 @@ export const AuthorRelations = t.Object(
         { additionalProperties: false },
       ),
       { additionalProperties: false },
+    ),
+    user: __nullable__(
+      t.Object(
+        {
+          id: t.String(),
+          username: t.String(),
+          password: t.String(),
+          role: t.Union([t.Literal("reader"), t.Literal("admin")], {
+            additionalProperties: false,
+          }),
+          createdAt: t.Date(),
+          updatedAt: t.Date(),
+        },
+        { additionalProperties: false },
+      ),
     ),
   },
   { additionalProperties: false },
@@ -72,6 +88,19 @@ export const AuthorRelationsInputCreate = t.Object(
         { additionalProperties: false },
       ),
     ),
+    user: t.Optional(
+      t.Object(
+        {
+          connect: t.Object(
+            {
+              id: t.String({ additionalProperties: false }),
+            },
+            { additionalProperties: false },
+          ),
+        },
+        { additionalProperties: false },
+      ),
+    ),
   },
   { additionalProperties: false },
 );
@@ -104,6 +133,20 @@ export const AuthorRelationsInputUpdate = t.Partial(
           { additionalProperties: false },
         ),
       ),
+      user: t.Partial(
+        t.Object(
+          {
+            connect: t.Object(
+              {
+                id: t.String({ additionalProperties: false }),
+              },
+              { additionalProperties: false },
+            ),
+            disconnect: t.Boolean(),
+          },
+          { additionalProperties: false },
+        ),
+      ),
     },
     { additionalProperties: false },
   ),
@@ -123,6 +166,7 @@ export const AuthorWhere = t.Partial(
           socialLinks: t.Any(),
           createdAt: t.Date(),
           updatedAt: t.Date(),
+          userId: t.String(),
         },
         { additionalProperties: false },
       ),
@@ -136,13 +180,17 @@ export const AuthorWhereUnique = t.Recursive(
       [
         t.Partial(
           t.Object(
-            { id: t.String(), name: t.String() },
+            { id: t.String(), name: t.String(), userId: t.String() },
             { additionalProperties: false },
           ),
           { additionalProperties: false },
         ),
         t.Union(
-          [t.Object({ id: t.String() }), t.Object({ name: t.String() })],
+          [
+            t.Object({ id: t.String() }),
+            t.Object({ name: t.String() }),
+            t.Object({ userId: t.String() }),
+          ],
           { additionalProperties: false },
         ),
         t.Partial(
@@ -168,6 +216,7 @@ export const AuthorWhereUnique = t.Recursive(
               socialLinks: t.Any(),
               createdAt: t.Date(),
               updatedAt: t.Date(),
+              userId: t.String(),
             },
             { additionalProperties: false },
           ),
@@ -188,6 +237,8 @@ export const AuthorSelect = t.Partial(
       createdAt: t.Boolean(),
       updatedAt: t.Boolean(),
       mangas: t.Boolean(),
+      userId: t.Boolean(),
+      user: t.Boolean(),
       _count: t.Boolean(),
     },
     { additionalProperties: false },
@@ -196,7 +247,7 @@ export const AuthorSelect = t.Partial(
 
 export const AuthorInclude = t.Partial(
   t.Object(
-    { mangas: t.Boolean(), _count: t.Boolean() },
+    { mangas: t.Boolean(), user: t.Boolean(), _count: t.Boolean() },
     { additionalProperties: false },
   ),
 );
@@ -220,6 +271,9 @@ export const AuthorOrderBy = t.Partial(
         additionalProperties: false,
       }),
       updatedAt: t.Union([t.Literal("asc"), t.Literal("desc")], {
+        additionalProperties: false,
+      }),
+      userId: t.Union([t.Literal("asc"), t.Literal("desc")], {
         additionalProperties: false,
       }),
     },

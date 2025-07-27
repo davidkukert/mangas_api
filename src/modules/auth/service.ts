@@ -41,7 +41,7 @@ export const AuthService = new Elysia({ name: 'Service.Auth' })
 
 				return undefined
 			},
-			currentUser: { role: 'guest' },
+			currentUser: { role: 'guest' } as UserAbility,
 			authorization(user: UserAbility, ...args: CanParameters<AppAbilities>) {
 				if (defineAbilityFor(user).cannot(...args)) {
 					throw HttpError.Forbidden(

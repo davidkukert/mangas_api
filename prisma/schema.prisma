@@ -45,6 +45,10 @@ model User {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
 
+  followingMangas MangaFollower[]
+  readingHistory  ReadingHistory[]
+  authorProfile   Author?
+
   @@map("users")
 }
 
@@ -92,8 +96,9 @@ model Manga {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
 
-  authors MangaAuthor[]
-  tags    Tag[]         @relation("mangas_tags")
+  authors   MangaAuthor[]
+  tags      Tag[]           @relation("mangas_tags")
+  followers MangaFollower[]
 
   chapters Chapter[]
 
@@ -111,6 +116,9 @@ model Author {
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
 
   mangas MangaAuthor[]
+
+  userId String? @unique @map("user_id")
+  user   User?   @relation(fields: [userId], references: [id])
 
   @@map("authors")
 }
@@ -149,6 +157,8 @@ model Chapter {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
 
+  readingHistory ReadingHistory[]
+
   @@unique([mangaId, number])
   @@map("chapters")
 }
@@ -169,4 +179,39 @@ model MangaAuthor {
 
   @@unique([mangaId, authorId])
   @@map("manga_authors")
+}
+
+enum FollowStatusEnum {
+  reading
+  completed
+  onHold
+  dropped
+  planToRead
+}
+
+model MangaFollower {
+  id         Int              @id @default(autoincrement())
+  mangaId    String           @map("manga_id")
+  followerId String           @map("follower_id")
+  status     FollowStatusEnum @default(planToRead)
+
+  manga    Manga @relation(fields: [mangaId], references: [id], onDelete: Cascade)
+  follower User  @relation(fields: [followerId], references: [id], onDelete: Cascade)
+
+  @@unique([mangaId, followerId])
+  @@map("manga_followers")
+}
+
+model ReadingHistory {
+  id        Int      @id @default(autoincrement())
+  chapterId String   @map("chapter_id")
+  userId    String   @map("user_id")
+  readingAt DateTime @default(now()) @map("reading_at")
+  page      Int?
+
+  chapter Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([chapterId, userId])
+  @@map("reading_history")
 }

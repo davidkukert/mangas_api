@@ -333,6 +333,23 @@ export type EnumMangaAuthorRoleEnumWithAggregatesFilter<$PrismaModel = never> = 
   _max?: Prisma.NestedEnumMangaAuthorRoleEnumFilter<$PrismaModel>
 }
 
+export type EnumFollowStatusEnumFilter<$PrismaModel = never> = {
+  equals?: $Enums.FollowStatusEnum | Prisma.EnumFollowStatusEnumFieldRefInput<$PrismaModel>
+  in?: $Enums.FollowStatusEnum[] | Prisma.ListEnumFollowStatusEnumFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FollowStatusEnum[] | Prisma.ListEnumFollowStatusEnumFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFollowStatusEnumFilter<$PrismaModel> | $Enums.FollowStatusEnum
+}
+
+export type EnumFollowStatusEnumWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.FollowStatusEnum | Prisma.EnumFollowStatusEnumFieldRefInput<$PrismaModel>
+  in?: $Enums.FollowStatusEnum[] | Prisma.ListEnumFollowStatusEnumFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FollowStatusEnum[] | Prisma.ListEnumFollowStatusEnumFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFollowStatusEnumWithAggregatesFilter<$PrismaModel> | $Enums.FollowStatusEnum
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFollowStatusEnumFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFollowStatusEnumFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -637,6 +654,23 @@ export type NestedEnumMangaAuthorRoleEnumWithAggregatesFilter<$PrismaModel = nev
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumMangaAuthorRoleEnumFilter<$PrismaModel>
   _max?: Prisma.NestedEnumMangaAuthorRoleEnumFilter<$PrismaModel>
+}
+
+export type NestedEnumFollowStatusEnumFilter<$PrismaModel = never> = {
+  equals?: $Enums.FollowStatusEnum | Prisma.EnumFollowStatusEnumFieldRefInput<$PrismaModel>
+  in?: $Enums.FollowStatusEnum[] | Prisma.ListEnumFollowStatusEnumFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FollowStatusEnum[] | Prisma.ListEnumFollowStatusEnumFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFollowStatusEnumFilter<$PrismaModel> | $Enums.FollowStatusEnum
+}
+
+export type NestedEnumFollowStatusEnumWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.FollowStatusEnum | Prisma.EnumFollowStatusEnumFieldRefInput<$PrismaModel>
+  in?: $Enums.FollowStatusEnum[] | Prisma.ListEnumFollowStatusEnumFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FollowStatusEnum[] | Prisma.ListEnumFollowStatusEnumFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFollowStatusEnumWithAggregatesFilter<$PrismaModel> | $Enums.FollowStatusEnum
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFollowStatusEnumFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFollowStatusEnumFilter<$PrismaModel>
 }
 
 
