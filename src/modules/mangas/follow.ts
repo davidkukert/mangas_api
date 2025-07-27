@@ -7,12 +7,17 @@ export const mangaFollows = new Elysia({ prefix: '/:id/follows' })
 	.use(MangaModel)
 	.use(setup)
 	.put(
-		'/:followerId',
-		async ({ db, query: { status }, params: { id, followerId } }) => {
+		'/',
+		async ({
+			auth: { currentUser },
+			db,
+			query: { status },
+			params: { id },
+		}) => {
 			await db.mangaFollower.create({
 				data: {
 					mangaId: id,
-					followerId,
+					followerId: currentUser.id,
 					status,
 				},
 			})
@@ -28,13 +33,13 @@ export const mangaFollows = new Elysia({ prefix: '/:id/follows' })
 		},
 	)
 	.delete(
-		'/:followerId',
-		async ({ db, params: { id, followerId } }) => {
+		'/',
+		async ({ auth: { currentUser }, db, params: { id } }) => {
 			await db.mangaFollower.delete({
 				where: {
 					mangaId_followerId: {
 						mangaId: id,
-						followerId,
+						followerId: currentUser.id,
 					},
 				},
 			})
