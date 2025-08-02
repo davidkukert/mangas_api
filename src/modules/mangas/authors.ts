@@ -47,6 +47,12 @@ export const mangasAuthors = new Elysia({ prefix: '/:id/authors' })
 			},
 		},
 	)
+	.get('/', async ({ db, params: { id } }) => {
+		const data = await db.author.findMany({
+			where: { mangas: { some: { mangaId: id } } },
+		})
+		return { data }
+	})
 	.onError(({ error, handleError, set }) => {
 		if (error instanceof Prisma.PrismaClientKnownRequestError) {
 			let modelName: Prisma.ModelName = 'MangaAuthor'

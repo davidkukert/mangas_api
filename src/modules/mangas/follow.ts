@@ -53,6 +53,12 @@ export const mangaFollows = new Elysia({ prefix: '/:id/follows' })
 			},
 		},
 	)
+	.get('/', async ({ db, params: { id } }) => {
+		const data = await db.user.findMany({
+			where: { followingMangas: { some: { mangaId: id } } },
+		})
+		return { data }
+	})
 	.onError(({ error, handleError, set }) => {
 		if (error instanceof Prisma.PrismaClientKnownRequestError) {
 			let modelName: Prisma.ModelName = 'MangaFollower'

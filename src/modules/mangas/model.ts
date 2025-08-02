@@ -1,5 +1,10 @@
 import { FollowStatusEnum } from '@db/schemas/FollowStatusEnum'
-import { MangaPlainInputCreate, MangaPlainInputUpdate } from '@db/schemas/Manga'
+import {
+	MangaInclude,
+	MangaOrderBy,
+	MangaPlainInputCreate,
+	MangaPlainInputUpdate,
+} from '@db/schemas/Manga'
 import { MangaAuthorRoleEnum } from '@db/schemas/MangaAuthorRoleEnum'
 import Elysia, { t } from 'elysia'
 
@@ -12,4 +17,13 @@ export const MangaModel = new Elysia({ name: 'Model.Manga' }).model({
 	'manga.follow.atts': t.Object({
 		status: t.Optional(FollowStatusEnum),
 	}),
+	'manga.query': t.Partial(
+		t.Object(
+			{
+				include: MangaInclude,
+				orderBy: MangaOrderBy,
+			},
+			{ additionalProperties: false },
+		),
+	),
 })

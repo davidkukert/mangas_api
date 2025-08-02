@@ -68,6 +68,12 @@ export const mangasTags = new Elysia({ prefix: '/:id/tags' })
 			},
 		},
 	)
+	.get('/', async ({ db, params: { id } }) => {
+		const data = await db.tag.findMany({
+			where: { mangas: { some: { id } } },
+		})
+		return { data }
+	})
 	.onError(({ error, handleError, set }) => {
 		if (error instanceof Prisma.PrismaClientKnownRequestError) {
 			const { message, status } = handleError(error, 'Manga', {})

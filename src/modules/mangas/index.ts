@@ -14,16 +14,22 @@ export const mangas = new Elysia({ name: 'Module.Mangas', prefix: '/mangas' })
 	.use(mangaFollows)
 	.get(
 		'/',
-		async ({ db }) => {
-			const data = await db.manga.findMany()
+		async ({ db, query: { include, orderBy } }) => {
+			const data = await db.manga.findMany({
+				include,
+				orderBy,
+			})
 			return { data }
 		},
-		{ publicRoute: true },
+		{ publicRoute: true, query: 'manga.query' },
 	)
 	.get(
 		'/:id',
 		async ({ db, params: { id } }) => {
-			const data = await db.manga.findUniqueOrThrow({ where: { id } })
+			const data = await db.manga.findUniqueOrThrow({
+				where: { id },
+				include: { tags: true },
+			})
 			return { data }
 		},
 		{ publicRoute: true },
