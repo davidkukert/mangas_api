@@ -1,11 +1,11 @@
 import { FollowStatusEnum } from '@db/schemas/FollowStatusEnum'
+import { MangaAuthorRoleEnum } from '@db/schemas/MangaAuthorRoleEnum'
 import {
 	MangaInclude,
 	MangaOrderBy,
 	MangaPlainInputCreate,
 	MangaPlainInputUpdate,
-} from '@db/schemas/Manga'
-import { MangaAuthorRoleEnum } from '@db/schemas/MangaAuthorRoleEnum'
+} from '@modules/mangas/schemas'
 import Elysia, { t } from 'elysia'
 
 export const MangaModel = new Elysia({ name: 'Model.Manga' }).model({

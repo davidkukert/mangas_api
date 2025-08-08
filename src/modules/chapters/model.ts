@@ -1,7 +1,7 @@
 import {
 	ChapterPlainInputCreate,
 	ChapterPlainInputUpdate,
-} from '@db/schemas/Chapter'
+} from '@modules/chapters/schemas'
 import Elysia, { t } from 'elysia'
 
 const ChapterPlainExtraCreate = t.Object(

@@ -1,4 +1,4 @@
-import { TagPlainInputCreate, TagPlainInputUpdate } from '@db/schemas/Tag'
+import { TagPlainInputCreate, TagPlainInputUpdate } from '@modules/tags/schemas'
 import Elysia from 'elysia'
 
 export const TagModel = new Elysia({ name: 'Model.Tag' }).model({

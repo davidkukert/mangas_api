@@ -1,7 +1,7 @@
 import {
 	AuthorPlainInputCreate,
 	AuthorPlainInputUpdate,
-} from '@db/schemas/Author'
+} from '@modules/authors/schemas'
 import Elysia, { t } from 'elysia'
 
 export const AuthorModel = new Elysia({ name: 'Model.Author' }).model({
