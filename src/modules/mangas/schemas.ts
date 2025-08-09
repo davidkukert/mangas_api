@@ -79,7 +79,6 @@ export const MangaPlain = t.Object(
 
 export const MangaAuthorPlain = t.Object(
 	{
-		id: t.Integer(),
 		mangaId: t.String(),
 		authorId: t.String(),
 		role: MangaAuthorRoleEnum,
@@ -89,7 +88,6 @@ export const MangaAuthorPlain = t.Object(
 
 export const MangaFollowerPlain = t.Object(
 	{
-		id: t.Integer(),
 		mangaId: t.String(),
 		followerId: t.String(),
 		status: FollowStatusEnum,
