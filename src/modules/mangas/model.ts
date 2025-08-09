@@ -1,6 +1,6 @@
-import { FollowStatusEnum } from '@db/schemas/FollowStatusEnum'
-import { MangaAuthorRoleEnum } from '@db/schemas/MangaAuthorRoleEnum'
 import {
+	FollowStatusEnum,
+	MangaAuthorRoleEnum,
 	MangaInclude,
 	MangaOrderBy,
 	MangaPlainInputCreate,

@@ -247,7 +247,7 @@ type GetMangaGroupByPayload<T extends MangaGroupByArgs> = Prisma.PrismaPromise<
           : Prisma.GetScalarType<T[P], MangaGroupByOutputType[P]>
       }
     >
-  > 
+  >
 
 
 

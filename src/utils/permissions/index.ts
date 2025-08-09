@@ -4,7 +4,7 @@ import {
 	createMongoAbility,
 	type MongoAbility,
 } from '@casl/ability'
-import type { User } from '@db/schemas/User'
+import type { User } from '@modules/users/schemas'
 import { permissions } from '@utils/permissions/permissions'
 import type { Role } from '@utils/permissions/roles'
 import { allSubject } from '@utils/permissions/subjects/all'

@@ -9,18 +9,16 @@ import {
 	type UserAbility,
 } from '@utils/permissions'
 import Elysia from 'elysia'
-import { httpErrorDecorator } from 'elysia-http-error'
 
 export const AuthService = new Elysia({ name: 'Service.Auth' })
 	.use(prismaDecorator)
-	.use(httpErrorDecorator)
 	.use(bearer())
 	.use(
 		jwt({
 			secret: envVars.JWT_SECRET,
 		}),
 	)
-	.derive({ as: 'global' }, ({ HttpError, bearer, db, jwt }) => ({
+	.derive({ as: 'global' }, ({ bearer, db, jwt, set }) => ({
 		auth: {
 			async genToken(userId: string) {
 				const token = await jwt.sign({ sub: userId })
@@ -44,19 +42,19 @@ export const AuthService = new Elysia({ name: 'Service.Auth' })
 			currentUser: { role: 'guest' } as UserAbility,
 			authorization(user: UserAbility, ...args: CanParameters<AppAbilities>) {
 				if (defineAbilityFor(user).cannot(...args)) {
-					throw HttpError.Forbidden(
-						'You are not allowed to perform this action',
-					)
+					set.status = 'Forbidden'
+					throw new Error('You are not allowed to perform this action')
 				}
 			},
 		},
 	}))
 	.macro({
 		privateRoute: {
-			resolve: async ({ HttpError, auth }) => {
+			resolve: async ({ auth, set }) => {
 				const currentUser = await auth.getCurrentUser()
 				if (!currentUser) {
-					throw HttpError.Unauthorized()
+					set.status = 'Unauthorized'
+					throw new Error('Unauthorized')
 				}
 				return {
 					auth: {

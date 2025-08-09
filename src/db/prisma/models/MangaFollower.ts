@@ -19,36 +19,23 @@ export type MangaFollowerModel = runtime.Types.Result.DefaultSelection<Prisma.$M
 
 export type AggregateMangaFollower = {
   _count: MangaFollowerCountAggregateOutputType | null
-  _avg: MangaFollowerAvgAggregateOutputType | null
-  _sum: MangaFollowerSumAggregateOutputType | null
   _min: MangaFollowerMinAggregateOutputType | null
   _max: MangaFollowerMaxAggregateOutputType | null
 }
 
-export type MangaFollowerAvgAggregateOutputType = {
-  id: number | null
-}
-
-export type MangaFollowerSumAggregateOutputType = {
-  id: number | null
-}
-
 export type MangaFollowerMinAggregateOutputType = {
-  id: number | null
   mangaId: string | null
   followerId: string | null
   status: $Enums.FollowStatusEnum | null
 }
 
 export type MangaFollowerMaxAggregateOutputType = {
-  id: number | null
   mangaId: string | null
   followerId: string | null
   status: $Enums.FollowStatusEnum | null
 }
 
 export type MangaFollowerCountAggregateOutputType = {
-  id: number
   mangaId: number
   followerId: number
   status: number
@@ -56,30 +43,19 @@ export type MangaFollowerCountAggregateOutputType = {
 }
 
 
-export type MangaFollowerAvgAggregateInputType = {
-  id?: true
-}
-
-export type MangaFollowerSumAggregateInputType = {
-  id?: true
-}
-
 export type MangaFollowerMinAggregateInputType = {
-  id?: true
   mangaId?: true
   followerId?: true
   status?: true
 }
 
 export type MangaFollowerMaxAggregateInputType = {
-  id?: true
   mangaId?: true
   followerId?: true
   status?: true
 }
 
 export type MangaFollowerCountAggregateInputType = {
-  id?: true
   mangaId?: true
   followerId?: true
   status?: true
@@ -124,18 +100,6 @@ export type MangaFollowerAggregateArgs<ExtArgs extends runtime.Types.Extensions.
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: MangaFollowerAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: MangaFollowerSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: MangaFollowerMinAggregateInputType
@@ -166,20 +130,15 @@ export type MangaFollowerGroupByArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   _count?: MangaFollowerCountAggregateInputType | true
-  _avg?: MangaFollowerAvgAggregateInputType
-  _sum?: MangaFollowerSumAggregateInputType
   _min?: MangaFollowerMinAggregateInputType
   _max?: MangaFollowerMaxAggregateInputType
 }
 
 export type MangaFollowerGroupByOutputType = {
-  id: number
   mangaId: string
   followerId: string
   status: $Enums.FollowStatusEnum
   _count: MangaFollowerCountAggregateOutputType | null
-  _avg: MangaFollowerAvgAggregateOutputType | null
-  _sum: MangaFollowerSumAggregateOutputType | null
   _min: MangaFollowerMinAggregateOutputType | null
   _max: MangaFollowerMaxAggregateOutputType | null
 }
@@ -195,7 +154,7 @@ type GetMangaFollowerGroupByPayload<T extends MangaFollowerGroupByArgs> = Prisma
           : Prisma.GetScalarType<T[P], MangaFollowerGroupByOutputType[P]>
       }
     >
-  > 
+  >
 
 
 
@@ -203,7 +162,6 @@ export type MangaFollowerWhereInput = {
   AND?: Prisma.MangaFollowerWhereInput | Prisma.MangaFollowerWhereInput[]
   OR?: Prisma.MangaFollowerWhereInput[]
   NOT?: Prisma.MangaFollowerWhereInput | Prisma.MangaFollowerWhereInput[]
-  id?: Prisma.IntFilter<"MangaFollower"> | number
   mangaId?: Prisma.StringFilter<"MangaFollower"> | string
   followerId?: Prisma.StringFilter<"MangaFollower"> | string
   status?: Prisma.EnumFollowStatusEnumFilter<"MangaFollower"> | $Enums.FollowStatusEnum
@@ -212,7 +170,6 @@ export type MangaFollowerWhereInput = {
 }
 
 export type MangaFollowerOrderByWithRelationInput = {
-  id?: Prisma.SortOrder
   mangaId?: Prisma.SortOrder
   followerId?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -221,7 +178,6 @@ export type MangaFollowerOrderByWithRelationInput = {
 }
 
 export type MangaFollowerWhereUniqueInput = Prisma.AtLeast<{
-  id?: number
   mangaId_followerId?: Prisma.MangaFollowerMangaIdFollowerIdCompoundUniqueInput
   AND?: Prisma.MangaFollowerWhereInput | Prisma.MangaFollowerWhereInput[]
   OR?: Prisma.MangaFollowerWhereInput[]
@@ -231,25 +187,21 @@ export type MangaFollowerWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumFollowStatusEnumFilter<"MangaFollower"> | $Enums.FollowStatusEnum
   manga?: Prisma.XOR<Prisma.MangaScalarRelationFilter, Prisma.MangaWhereInput>
   follower?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "id" | "mangaId_followerId">
+}, "mangaId_followerId">
 
 export type MangaFollowerOrderByWithAggregationInput = {
-  id?: Prisma.SortOrder
   mangaId?: Prisma.SortOrder
   followerId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   _count?: Prisma.MangaFollowerCountOrderByAggregateInput
-  _avg?: Prisma.MangaFollowerAvgOrderByAggregateInput
   _max?: Prisma.MangaFollowerMaxOrderByAggregateInput
   _min?: Prisma.MangaFollowerMinOrderByAggregateInput
-  _sum?: Prisma.MangaFollowerSumOrderByAggregateInput
 }
 
 export type MangaFollowerScalarWhereWithAggregatesInput = {
   AND?: Prisma.MangaFollowerScalarWhereWithAggregatesInput | Prisma.MangaFollowerScalarWhereWithAggregatesInput[]
   OR?: Prisma.MangaFollowerScalarWhereWithAggregatesInput[]
   NOT?: Prisma.MangaFollowerScalarWhereWithAggregatesInput | Prisma.MangaFollowerScalarWhereWithAggregatesInput[]
-  id?: Prisma.IntWithAggregatesFilter<"MangaFollower"> | number
   mangaId?: Prisma.StringWithAggregatesFilter<"MangaFollower"> | string
   followerId?: Prisma.StringWithAggregatesFilter<"MangaFollower"> | string
   status?: Prisma.EnumFollowStatusEnumWithAggregatesFilter<"MangaFollower"> | $Enums.FollowStatusEnum
@@ -262,7 +214,6 @@ export type MangaFollowerCreateInput = {
 }
 
 export type MangaFollowerUncheckedCreateInput = {
-  id?: number
   mangaId: string
   followerId: string
   status?: $Enums.FollowStatusEnum
@@ -275,14 +226,12 @@ export type MangaFollowerUpdateInput = {
 }
 
 export type MangaFollowerUncheckedUpdateInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
   mangaId?: Prisma.StringFieldUpdateOperationsInput | string
   followerId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumFollowStatusEnumFieldUpdateOperationsInput | $Enums.FollowStatusEnum
 }
 
 export type MangaFollowerCreateManyInput = {
-  id?: number
   mangaId: string
   followerId: string
   status?: $Enums.FollowStatusEnum
@@ -293,7 +242,6 @@ export type MangaFollowerUpdateManyMutationInput = {
 }
 
 export type MangaFollowerUncheckedUpdateManyInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
   mangaId?: Prisma.StringFieldUpdateOperationsInput | string
   followerId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumFollowStatusEnumFieldUpdateOperationsInput | $Enums.FollowStatusEnum
@@ -315,32 +263,21 @@ export type MangaFollowerMangaIdFollowerIdCompoundUniqueInput = {
 }
 
 export type MangaFollowerCountOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   mangaId?: Prisma.SortOrder
   followerId?: Prisma.SortOrder
   status?: Prisma.SortOrder
 }
 
-export type MangaFollowerAvgOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-}
-
 export type MangaFollowerMaxOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   mangaId?: Prisma.SortOrder
   followerId?: Prisma.SortOrder
   status?: Prisma.SortOrder
 }
 
 export type MangaFollowerMinOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   mangaId?: Prisma.SortOrder
   followerId?: Prisma.SortOrder
   status?: Prisma.SortOrder
-}
-
-export type MangaFollowerSumOrderByAggregateInput = {
-  id?: Prisma.SortOrder
 }
 
 export type MangaFollowerCreateNestedManyWithoutFollowerInput = {
@@ -437,7 +374,6 @@ export type MangaFollowerCreateWithoutFollowerInput = {
 }
 
 export type MangaFollowerUncheckedCreateWithoutFollowerInput = {
-  id?: number
   mangaId: string
   status?: $Enums.FollowStatusEnum
 }
@@ -472,7 +408,6 @@ export type MangaFollowerScalarWhereInput = {
   AND?: Prisma.MangaFollowerScalarWhereInput | Prisma.MangaFollowerScalarWhereInput[]
   OR?: Prisma.MangaFollowerScalarWhereInput[]
   NOT?: Prisma.MangaFollowerScalarWhereInput | Prisma.MangaFollowerScalarWhereInput[]
-  id?: Prisma.IntFilter<"MangaFollower"> | number
   mangaId?: Prisma.StringFilter<"MangaFollower"> | string
   followerId?: Prisma.StringFilter<"MangaFollower"> | string
   status?: Prisma.EnumFollowStatusEnumFilter<"MangaFollower"> | $Enums.FollowStatusEnum
@@ -484,7 +419,6 @@ export type MangaFollowerCreateWithoutMangaInput = {
 }
 
 export type MangaFollowerUncheckedCreateWithoutMangaInput = {
-  id?: number
   followerId: string
   status?: $Enums.FollowStatusEnum
 }
@@ -516,7 +450,6 @@ export type MangaFollowerUpdateManyWithWhereWithoutMangaInput = {
 }
 
 export type MangaFollowerCreateManyFollowerInput = {
-  id?: number
   mangaId: string
   status?: $Enums.FollowStatusEnum
 }
@@ -527,19 +460,16 @@ export type MangaFollowerUpdateWithoutFollowerInput = {
 }
 
 export type MangaFollowerUncheckedUpdateWithoutFollowerInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
   mangaId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumFollowStatusEnumFieldUpdateOperationsInput | $Enums.FollowStatusEnum
 }
 
 export type MangaFollowerUncheckedUpdateManyWithoutFollowerInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
   mangaId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumFollowStatusEnumFieldUpdateOperationsInput | $Enums.FollowStatusEnum
 }
 
 export type MangaFollowerCreateManyMangaInput = {
-  id?: number
   followerId: string
   status?: $Enums.FollowStatusEnum
 }
@@ -550,13 +480,11 @@ export type MangaFollowerUpdateWithoutMangaInput = {
 }
 
 export type MangaFollowerUncheckedUpdateWithoutMangaInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
   followerId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumFollowStatusEnumFieldUpdateOperationsInput | $Enums.FollowStatusEnum
 }
 
 export type MangaFollowerUncheckedUpdateManyWithoutMangaInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
   followerId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumFollowStatusEnumFieldUpdateOperationsInput | $Enums.FollowStatusEnum
 }
@@ -564,7 +492,6 @@ export type MangaFollowerUncheckedUpdateManyWithoutMangaInput = {
 
 
 export type MangaFollowerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
   mangaId?: boolean
   followerId?: boolean
   status?: boolean
@@ -573,7 +500,6 @@ export type MangaFollowerSelect<ExtArgs extends runtime.Types.Extensions.Interna
 }, ExtArgs["result"]["mangaFollower"]>
 
 export type MangaFollowerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
   mangaId?: boolean
   followerId?: boolean
   status?: boolean
@@ -582,7 +508,6 @@ export type MangaFollowerSelectCreateManyAndReturn<ExtArgs extends runtime.Types
 }, ExtArgs["result"]["mangaFollower"]>
 
 export type MangaFollowerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
   mangaId?: boolean
   followerId?: boolean
   status?: boolean
@@ -591,13 +516,12 @@ export type MangaFollowerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
 }, ExtArgs["result"]["mangaFollower"]>
 
 export type MangaFollowerSelectScalar = {
-  id?: boolean
   mangaId?: boolean
   followerId?: boolean
   status?: boolean
 }
 
-export type MangaFollowerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "mangaId" | "followerId" | "status", ExtArgs["result"]["mangaFollower"]>
+export type MangaFollowerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"mangaId" | "followerId" | "status", ExtArgs["result"]["mangaFollower"]>
 export type MangaFollowerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   manga?: boolean | Prisma.MangaDefaultArgs<ExtArgs>
   follower?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -618,7 +542,6 @@ export type $MangaFollowerPayload<ExtArgs extends runtime.Types.Extensions.Inter
     follower: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: number
     mangaId: string
     followerId: string
     status: $Enums.FollowStatusEnum
@@ -705,8 +628,8 @@ export interface MangaFollowerDelegate<ExtArgs extends runtime.Types.Extensions.
    * // Get first 10 MangaFollowers
    * const mangaFollowers = await prisma.mangaFollower.findMany({ take: 10 })
    * 
-   * // Only select the `id`
-   * const mangaFollowerWithIdOnly = await prisma.mangaFollower.findMany({ select: { id: true } })
+   * // Only select the `mangaId`
+   * const mangaFollowerWithMangaIdOnly = await prisma.mangaFollower.findMany({ select: { mangaId: true } })
    * 
    */
   findMany<T extends MangaFollowerFindManyArgs>(args?: Prisma.SelectSubset<T, MangaFollowerFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MangaFollowerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -750,9 +673,9 @@ export interface MangaFollowerDelegate<ExtArgs extends runtime.Types.Extensions.
    *   ]
    * })
    * 
-   * // Create many MangaFollowers and only return the `id`
-   * const mangaFollowerWithIdOnly = await prisma.mangaFollower.createManyAndReturn({
-   *   select: { id: true },
+   * // Create many MangaFollowers and only return the `mangaId`
+   * const mangaFollowerWithMangaIdOnly = await prisma.mangaFollower.createManyAndReturn({
+   *   select: { mangaId: true },
    *   data: [
    *     // ... provide data here
    *   ]
@@ -841,9 +764,9 @@ export interface MangaFollowerDelegate<ExtArgs extends runtime.Types.Extensions.
    *   ]
    * })
    * 
-   * // Update zero or more MangaFollowers and only return the `id`
-   * const mangaFollowerWithIdOnly = await prisma.mangaFollower.updateManyAndReturn({
-   *   select: { id: true },
+   * // Update zero or more MangaFollowers and only return the `mangaId`
+   * const mangaFollowerWithMangaIdOnly = await prisma.mangaFollower.updateManyAndReturn({
+   *   select: { mangaId: true },
    *   where: {
    *     // ... provide filter here
    *   },
@@ -1047,7 +970,6 @@ export interface Prisma__MangaFollowerClient<T, Null = never, ExtArgs extends ru
  * Fields of the MangaFollower model
  */
 export interface MangaFollowerFieldRefs {
-  readonly id: Prisma.FieldRef<"MangaFollower", 'Int'>
   readonly mangaId: Prisma.FieldRef<"MangaFollower", 'String'>
   readonly followerId: Prisma.FieldRef<"MangaFollower", 'String'>
   readonly status: Prisma.FieldRef<"MangaFollower", 'FollowStatusEnum'>

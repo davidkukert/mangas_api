@@ -161,7 +161,7 @@ type GetTagGroupByPayload<T extends TagGroupByArgs> = Prisma.PrismaPromise<
           : Prisma.GetScalarType<T[P], TagGroupByOutputType[P]>
       }
     >
-  > 
+  >
 
 
 

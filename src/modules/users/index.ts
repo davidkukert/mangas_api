@@ -35,7 +35,7 @@ export const users = new Elysia({ name: 'Module.Users', prefix: '/users' })
 				},
 				omit: { password: true },
 			})
-			set.status = 201
+			set.status = 'Created'
 			return { data }
 		},
 		{ body: 'user.create', publicRoute: true },

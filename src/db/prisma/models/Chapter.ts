@@ -230,7 +230,7 @@ type GetChapterGroupByPayload<T extends ChapterGroupByArgs> = Prisma.PrismaPromi
           : Prisma.GetScalarType<T[P], ChapterGroupByOutputType[P]>
       }
     >
-  > 
+  >
 
 
 

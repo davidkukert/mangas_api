@@ -26,17 +26,14 @@ export type AggregateReadingHistory = {
 }
 
 export type ReadingHistoryAvgAggregateOutputType = {
-  id: number | null
   page: number | null
 }
 
 export type ReadingHistorySumAggregateOutputType = {
-  id: number | null
   page: number | null
 }
 
 export type ReadingHistoryMinAggregateOutputType = {
-  id: number | null
   chapterId: string | null
   userId: string | null
   readingAt: Date | null
@@ -44,7 +41,6 @@ export type ReadingHistoryMinAggregateOutputType = {
 }
 
 export type ReadingHistoryMaxAggregateOutputType = {
-  id: number | null
   chapterId: string | null
   userId: string | null
   readingAt: Date | null
@@ -52,7 +48,6 @@ export type ReadingHistoryMaxAggregateOutputType = {
 }
 
 export type ReadingHistoryCountAggregateOutputType = {
-  id: number
   chapterId: number
   userId: number
   readingAt: number
@@ -62,17 +57,14 @@ export type ReadingHistoryCountAggregateOutputType = {
 
 
 export type ReadingHistoryAvgAggregateInputType = {
-  id?: true
   page?: true
 }
 
 export type ReadingHistorySumAggregateInputType = {
-  id?: true
   page?: true
 }
 
 export type ReadingHistoryMinAggregateInputType = {
-  id?: true
   chapterId?: true
   userId?: true
   readingAt?: true
@@ -80,7 +72,6 @@ export type ReadingHistoryMinAggregateInputType = {
 }
 
 export type ReadingHistoryMaxAggregateInputType = {
-  id?: true
   chapterId?: true
   userId?: true
   readingAt?: true
@@ -88,7 +79,6 @@ export type ReadingHistoryMaxAggregateInputType = {
 }
 
 export type ReadingHistoryCountAggregateInputType = {
-  id?: true
   chapterId?: true
   userId?: true
   readingAt?: true
@@ -183,7 +173,6 @@ export type ReadingHistoryGroupByArgs<ExtArgs extends runtime.Types.Extensions.I
 }
 
 export type ReadingHistoryGroupByOutputType = {
-  id: number
   chapterId: string
   userId: string
   readingAt: Date
@@ -206,7 +195,7 @@ type GetReadingHistoryGroupByPayload<T extends ReadingHistoryGroupByArgs> = Pris
           : Prisma.GetScalarType<T[P], ReadingHistoryGroupByOutputType[P]>
       }
     >
-  > 
+  >
 
 
 
@@ -214,7 +203,6 @@ export type ReadingHistoryWhereInput = {
   AND?: Prisma.ReadingHistoryWhereInput | Prisma.ReadingHistoryWhereInput[]
   OR?: Prisma.ReadingHistoryWhereInput[]
   NOT?: Prisma.ReadingHistoryWhereInput | Prisma.ReadingHistoryWhereInput[]
-  id?: Prisma.IntFilter<"ReadingHistory"> | number
   chapterId?: Prisma.StringFilter<"ReadingHistory"> | string
   userId?: Prisma.StringFilter<"ReadingHistory"> | string
   readingAt?: Prisma.DateTimeFilter<"ReadingHistory"> | Date | string
@@ -224,7 +212,6 @@ export type ReadingHistoryWhereInput = {
 }
 
 export type ReadingHistoryOrderByWithRelationInput = {
-  id?: Prisma.SortOrder
   chapterId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   readingAt?: Prisma.SortOrder
@@ -234,7 +221,6 @@ export type ReadingHistoryOrderByWithRelationInput = {
 }
 
 export type ReadingHistoryWhereUniqueInput = Prisma.AtLeast<{
-  id?: number
   chapterId_userId?: Prisma.ReadingHistoryChapterIdUserIdCompoundUniqueInput
   AND?: Prisma.ReadingHistoryWhereInput | Prisma.ReadingHistoryWhereInput[]
   OR?: Prisma.ReadingHistoryWhereInput[]
@@ -245,10 +231,9 @@ export type ReadingHistoryWhereUniqueInput = Prisma.AtLeast<{
   page?: Prisma.IntNullableFilter<"ReadingHistory"> | number | null
   chapter?: Prisma.XOR<Prisma.ChapterScalarRelationFilter, Prisma.ChapterWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "id" | "chapterId_userId">
+}, "chapterId_userId">
 
 export type ReadingHistoryOrderByWithAggregationInput = {
-  id?: Prisma.SortOrder
   chapterId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   readingAt?: Prisma.SortOrder
@@ -264,7 +249,6 @@ export type ReadingHistoryScalarWhereWithAggregatesInput = {
   AND?: Prisma.ReadingHistoryScalarWhereWithAggregatesInput | Prisma.ReadingHistoryScalarWhereWithAggregatesInput[]
   OR?: Prisma.ReadingHistoryScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ReadingHistoryScalarWhereWithAggregatesInput | Prisma.ReadingHistoryScalarWhereWithAggregatesInput[]
-  id?: Prisma.IntWithAggregatesFilter<"ReadingHistory"> | number
   chapterId?: Prisma.StringWithAggregatesFilter<"ReadingHistory"> | string
   userId?: Prisma.StringWithAggregatesFilter<"ReadingHistory"> | string
   readingAt?: Prisma.DateTimeWithAggregatesFilter<"ReadingHistory"> | Date | string
@@ -279,7 +263,6 @@ export type ReadingHistoryCreateInput = {
 }
 
 export type ReadingHistoryUncheckedCreateInput = {
-  id?: number
   chapterId: string
   userId: string
   readingAt?: Date | string
@@ -294,7 +277,6 @@ export type ReadingHistoryUpdateInput = {
 }
 
 export type ReadingHistoryUncheckedUpdateInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
   chapterId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   readingAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -302,7 +284,6 @@ export type ReadingHistoryUncheckedUpdateInput = {
 }
 
 export type ReadingHistoryCreateManyInput = {
-  id?: number
   chapterId: string
   userId: string
   readingAt?: Date | string
@@ -315,7 +296,6 @@ export type ReadingHistoryUpdateManyMutationInput = {
 }
 
 export type ReadingHistoryUncheckedUpdateManyInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
   chapterId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   readingAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -338,7 +318,6 @@ export type ReadingHistoryChapterIdUserIdCompoundUniqueInput = {
 }
 
 export type ReadingHistoryCountOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   chapterId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   readingAt?: Prisma.SortOrder
@@ -346,12 +325,10 @@ export type ReadingHistoryCountOrderByAggregateInput = {
 }
 
 export type ReadingHistoryAvgOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   page?: Prisma.SortOrder
 }
 
 export type ReadingHistoryMaxOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   chapterId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   readingAt?: Prisma.SortOrder
@@ -359,7 +336,6 @@ export type ReadingHistoryMaxOrderByAggregateInput = {
 }
 
 export type ReadingHistoryMinOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   chapterId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   readingAt?: Prisma.SortOrder
@@ -367,7 +343,6 @@ export type ReadingHistoryMinOrderByAggregateInput = {
 }
 
 export type ReadingHistorySumOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   page?: Prisma.SortOrder
 }
 
@@ -462,7 +437,6 @@ export type ReadingHistoryCreateWithoutUserInput = {
 }
 
 export type ReadingHistoryUncheckedCreateWithoutUserInput = {
-  id?: number
   chapterId: string
   readingAt?: Date | string
   page?: number | null
@@ -498,7 +472,6 @@ export type ReadingHistoryScalarWhereInput = {
   AND?: Prisma.ReadingHistoryScalarWhereInput | Prisma.ReadingHistoryScalarWhereInput[]
   OR?: Prisma.ReadingHistoryScalarWhereInput[]
   NOT?: Prisma.ReadingHistoryScalarWhereInput | Prisma.ReadingHistoryScalarWhereInput[]
-  id?: Prisma.IntFilter<"ReadingHistory"> | number
   chapterId?: Prisma.StringFilter<"ReadingHistory"> | string
   userId?: Prisma.StringFilter<"ReadingHistory"> | string
   readingAt?: Prisma.DateTimeFilter<"ReadingHistory"> | Date | string
@@ -512,7 +485,6 @@ export type ReadingHistoryCreateWithoutChapterInput = {
 }
 
 export type ReadingHistoryUncheckedCreateWithoutChapterInput = {
-  id?: number
   userId: string
   readingAt?: Date | string
   page?: number | null
@@ -545,7 +517,6 @@ export type ReadingHistoryUpdateManyWithWhereWithoutChapterInput = {
 }
 
 export type ReadingHistoryCreateManyUserInput = {
-  id?: number
   chapterId: string
   readingAt?: Date | string
   page?: number | null
@@ -558,21 +529,18 @@ export type ReadingHistoryUpdateWithoutUserInput = {
 }
 
 export type ReadingHistoryUncheckedUpdateWithoutUserInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
   chapterId?: Prisma.StringFieldUpdateOperationsInput | string
   readingAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   page?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type ReadingHistoryUncheckedUpdateManyWithoutUserInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
   chapterId?: Prisma.StringFieldUpdateOperationsInput | string
   readingAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   page?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type ReadingHistoryCreateManyChapterInput = {
-  id?: number
   userId: string
   readingAt?: Date | string
   page?: number | null
@@ -585,14 +553,12 @@ export type ReadingHistoryUpdateWithoutChapterInput = {
 }
 
 export type ReadingHistoryUncheckedUpdateWithoutChapterInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   readingAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   page?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type ReadingHistoryUncheckedUpdateManyWithoutChapterInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   readingAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   page?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -601,7 +567,6 @@ export type ReadingHistoryUncheckedUpdateManyWithoutChapterInput = {
 
 
 export type ReadingHistorySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
   chapterId?: boolean
   userId?: boolean
   readingAt?: boolean
@@ -611,7 +576,6 @@ export type ReadingHistorySelect<ExtArgs extends runtime.Types.Extensions.Intern
 }, ExtArgs["result"]["readingHistory"]>
 
 export type ReadingHistorySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
   chapterId?: boolean
   userId?: boolean
   readingAt?: boolean
@@ -621,7 +585,6 @@ export type ReadingHistorySelectCreateManyAndReturn<ExtArgs extends runtime.Type
 }, ExtArgs["result"]["readingHistory"]>
 
 export type ReadingHistorySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
   chapterId?: boolean
   userId?: boolean
   readingAt?: boolean
@@ -631,14 +594,13 @@ export type ReadingHistorySelectUpdateManyAndReturn<ExtArgs extends runtime.Type
 }, ExtArgs["result"]["readingHistory"]>
 
 export type ReadingHistorySelectScalar = {
-  id?: boolean
   chapterId?: boolean
   userId?: boolean
   readingAt?: boolean
   page?: boolean
 }
 
-export type ReadingHistoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "chapterId" | "userId" | "readingAt" | "page", ExtArgs["result"]["readingHistory"]>
+export type ReadingHistoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"chapterId" | "userId" | "readingAt" | "page", ExtArgs["result"]["readingHistory"]>
 export type ReadingHistoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   chapter?: boolean | Prisma.ChapterDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -659,7 +621,6 @@ export type $ReadingHistoryPayload<ExtArgs extends runtime.Types.Extensions.Inte
     user: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: number
     chapterId: string
     userId: string
     readingAt: Date
@@ -747,8 +708,8 @@ export interface ReadingHistoryDelegate<ExtArgs extends runtime.Types.Extensions
    * // Get first 10 ReadingHistories
    * const readingHistories = await prisma.readingHistory.findMany({ take: 10 })
    * 
-   * // Only select the `id`
-   * const readingHistoryWithIdOnly = await prisma.readingHistory.findMany({ select: { id: true } })
+   * // Only select the `chapterId`
+   * const readingHistoryWithChapterIdOnly = await prisma.readingHistory.findMany({ select: { chapterId: true } })
    * 
    */
   findMany<T extends ReadingHistoryFindManyArgs>(args?: Prisma.SelectSubset<T, ReadingHistoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReadingHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -792,9 +753,9 @@ export interface ReadingHistoryDelegate<ExtArgs extends runtime.Types.Extensions
    *   ]
    * })
    * 
-   * // Create many ReadingHistories and only return the `id`
-   * const readingHistoryWithIdOnly = await prisma.readingHistory.createManyAndReturn({
-   *   select: { id: true },
+   * // Create many ReadingHistories and only return the `chapterId`
+   * const readingHistoryWithChapterIdOnly = await prisma.readingHistory.createManyAndReturn({
+   *   select: { chapterId: true },
    *   data: [
    *     // ... provide data here
    *   ]
@@ -883,9 +844,9 @@ export interface ReadingHistoryDelegate<ExtArgs extends runtime.Types.Extensions
    *   ]
    * })
    * 
-   * // Update zero or more ReadingHistories and only return the `id`
-   * const readingHistoryWithIdOnly = await prisma.readingHistory.updateManyAndReturn({
-   *   select: { id: true },
+   * // Update zero or more ReadingHistories and only return the `chapterId`
+   * const readingHistoryWithChapterIdOnly = await prisma.readingHistory.updateManyAndReturn({
+   *   select: { chapterId: true },
    *   where: {
    *     // ... provide filter here
    *   },
@@ -1089,7 +1050,6 @@ export interface Prisma__ReadingHistoryClient<T, Null = never, ExtArgs extends r
  * Fields of the ReadingHistory model
  */
 export interface ReadingHistoryFieldRefs {
-  readonly id: Prisma.FieldRef<"ReadingHistory", 'Int'>
   readonly chapterId: Prisma.FieldRef<"ReadingHistory", 'String'>
   readonly userId: Prisma.FieldRef<"ReadingHistory", 'String'>
   readonly readingAt: Prisma.FieldRef<"ReadingHistory", 'DateTime'>

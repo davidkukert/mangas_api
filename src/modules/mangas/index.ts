@@ -38,7 +38,7 @@ export const mangas = new Elysia({ name: 'Module.Mangas', prefix: '/mangas' })
 		'/',
 		async ({ body, db, set }) => {
 			const data = await db.manga.create({ data: body })
-			set.status = 201
+			set.status = 'Created'
 			return { data }
 		},
 		{

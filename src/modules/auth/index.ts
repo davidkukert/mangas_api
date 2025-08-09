@@ -9,11 +9,12 @@ export const auth = new Elysia({ name: 'Module.Auth', prefix: '/auth' })
 	.use(AuthModel)
 	.post(
 		'/login',
-		async ({ HttpError, body, db, auth: { genToken } }) => {
+		async ({ body, db, auth: { genToken }, set }) => {
 			const { username, password } = body
 			const user = await db.user.findUnique({ where: { username } })
 			if (!user || !Bun.password.verifySync(password, user.password)) {
-				throw HttpError.Unauthorized()
+				set.status = 'Unauthorized'
+				throw new Error('Unauthorized')
 			}
 
 			const token = await genToken(user.id)

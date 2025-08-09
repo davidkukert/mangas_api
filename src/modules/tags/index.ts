@@ -29,7 +29,7 @@ export const tags = new Elysia({
 		'/',
 		async ({ body, db, set }) => {
 			const data = await db.tag.create({ data: body })
-			set.status = 201
+			set.status = 'Created'
 			return { data }
 		},
 		{

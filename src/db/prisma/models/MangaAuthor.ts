@@ -19,36 +19,23 @@ export type MangaAuthorModel = runtime.Types.Result.DefaultSelection<Prisma.$Man
 
 export type AggregateMangaAuthor = {
   _count: MangaAuthorCountAggregateOutputType | null
-  _avg: MangaAuthorAvgAggregateOutputType | null
-  _sum: MangaAuthorSumAggregateOutputType | null
   _min: MangaAuthorMinAggregateOutputType | null
   _max: MangaAuthorMaxAggregateOutputType | null
 }
 
-export type MangaAuthorAvgAggregateOutputType = {
-  id: number | null
-}
-
-export type MangaAuthorSumAggregateOutputType = {
-  id: number | null
-}
-
 export type MangaAuthorMinAggregateOutputType = {
-  id: number | null
   mangaId: string | null
   authorId: string | null
   role: $Enums.MangaAuthorRoleEnum | null
 }
 
 export type MangaAuthorMaxAggregateOutputType = {
-  id: number | null
   mangaId: string | null
   authorId: string | null
   role: $Enums.MangaAuthorRoleEnum | null
 }
 
 export type MangaAuthorCountAggregateOutputType = {
-  id: number
   mangaId: number
   authorId: number
   role: number
@@ -56,30 +43,19 @@ export type MangaAuthorCountAggregateOutputType = {
 }
 
 
-export type MangaAuthorAvgAggregateInputType = {
-  id?: true
-}
-
-export type MangaAuthorSumAggregateInputType = {
-  id?: true
-}
-
 export type MangaAuthorMinAggregateInputType = {
-  id?: true
   mangaId?: true
   authorId?: true
   role?: true
 }
 
 export type MangaAuthorMaxAggregateInputType = {
-  id?: true
   mangaId?: true
   authorId?: true
   role?: true
 }
 
 export type MangaAuthorCountAggregateInputType = {
-  id?: true
   mangaId?: true
   authorId?: true
   role?: true
@@ -124,18 +100,6 @@ export type MangaAuthorAggregateArgs<ExtArgs extends runtime.Types.Extensions.In
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: MangaAuthorAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: MangaAuthorSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: MangaAuthorMinAggregateInputType
@@ -166,20 +130,15 @@ export type MangaAuthorGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   _count?: MangaAuthorCountAggregateInputType | true
-  _avg?: MangaAuthorAvgAggregateInputType
-  _sum?: MangaAuthorSumAggregateInputType
   _min?: MangaAuthorMinAggregateInputType
   _max?: MangaAuthorMaxAggregateInputType
 }
 
 export type MangaAuthorGroupByOutputType = {
-  id: number
   mangaId: string
   authorId: string
   role: $Enums.MangaAuthorRoleEnum
   _count: MangaAuthorCountAggregateOutputType | null
-  _avg: MangaAuthorAvgAggregateOutputType | null
-  _sum: MangaAuthorSumAggregateOutputType | null
   _min: MangaAuthorMinAggregateOutputType | null
   _max: MangaAuthorMaxAggregateOutputType | null
 }
@@ -195,7 +154,7 @@ type GetMangaAuthorGroupByPayload<T extends MangaAuthorGroupByArgs> = Prisma.Pri
           : Prisma.GetScalarType<T[P], MangaAuthorGroupByOutputType[P]>
       }
     >
-  > 
+  >
 
 
 
@@ -203,7 +162,6 @@ export type MangaAuthorWhereInput = {
   AND?: Prisma.MangaAuthorWhereInput | Prisma.MangaAuthorWhereInput[]
   OR?: Prisma.MangaAuthorWhereInput[]
   NOT?: Prisma.MangaAuthorWhereInput | Prisma.MangaAuthorWhereInput[]
-  id?: Prisma.IntFilter<"MangaAuthor"> | number
   mangaId?: Prisma.StringFilter<"MangaAuthor"> | string
   authorId?: Prisma.StringFilter<"MangaAuthor"> | string
   role?: Prisma.EnumMangaAuthorRoleEnumFilter<"MangaAuthor"> | $Enums.MangaAuthorRoleEnum
@@ -212,7 +170,6 @@ export type MangaAuthorWhereInput = {
 }
 
 export type MangaAuthorOrderByWithRelationInput = {
-  id?: Prisma.SortOrder
   mangaId?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   role?: Prisma.SortOrder
@@ -221,7 +178,6 @@ export type MangaAuthorOrderByWithRelationInput = {
 }
 
 export type MangaAuthorWhereUniqueInput = Prisma.AtLeast<{
-  id?: number
   mangaId_authorId?: Prisma.MangaAuthorMangaIdAuthorIdCompoundUniqueInput
   AND?: Prisma.MangaAuthorWhereInput | Prisma.MangaAuthorWhereInput[]
   OR?: Prisma.MangaAuthorWhereInput[]
@@ -231,25 +187,21 @@ export type MangaAuthorWhereUniqueInput = Prisma.AtLeast<{
   role?: Prisma.EnumMangaAuthorRoleEnumFilter<"MangaAuthor"> | $Enums.MangaAuthorRoleEnum
   manga?: Prisma.XOR<Prisma.MangaScalarRelationFilter, Prisma.MangaWhereInput>
   author?: Prisma.XOR<Prisma.AuthorScalarRelationFilter, Prisma.AuthorWhereInput>
-}, "id" | "mangaId_authorId">
+}, "mangaId_authorId">
 
 export type MangaAuthorOrderByWithAggregationInput = {
-  id?: Prisma.SortOrder
   mangaId?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   role?: Prisma.SortOrder
   _count?: Prisma.MangaAuthorCountOrderByAggregateInput
-  _avg?: Prisma.MangaAuthorAvgOrderByAggregateInput
   _max?: Prisma.MangaAuthorMaxOrderByAggregateInput
   _min?: Prisma.MangaAuthorMinOrderByAggregateInput
-  _sum?: Prisma.MangaAuthorSumOrderByAggregateInput
 }
 
 export type MangaAuthorScalarWhereWithAggregatesInput = {
   AND?: Prisma.MangaAuthorScalarWhereWithAggregatesInput | Prisma.MangaAuthorScalarWhereWithAggregatesInput[]
   OR?: Prisma.MangaAuthorScalarWhereWithAggregatesInput[]
   NOT?: Prisma.MangaAuthorScalarWhereWithAggregatesInput | Prisma.MangaAuthorScalarWhereWithAggregatesInput[]
-  id?: Prisma.IntWithAggregatesFilter<"MangaAuthor"> | number
   mangaId?: Prisma.StringWithAggregatesFilter<"MangaAuthor"> | string
   authorId?: Prisma.StringWithAggregatesFilter<"MangaAuthor"> | string
   role?: Prisma.EnumMangaAuthorRoleEnumWithAggregatesFilter<"MangaAuthor"> | $Enums.MangaAuthorRoleEnum
@@ -262,7 +214,6 @@ export type MangaAuthorCreateInput = {
 }
 
 export type MangaAuthorUncheckedCreateInput = {
-  id?: number
   mangaId: string
   authorId: string
   role: $Enums.MangaAuthorRoleEnum
@@ -275,14 +226,12 @@ export type MangaAuthorUpdateInput = {
 }
 
 export type MangaAuthorUncheckedUpdateInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
   mangaId?: Prisma.StringFieldUpdateOperationsInput | string
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumMangaAuthorRoleEnumFieldUpdateOperationsInput | $Enums.MangaAuthorRoleEnum
 }
 
 export type MangaAuthorCreateManyInput = {
-  id?: number
   mangaId: string
   authorId: string
   role: $Enums.MangaAuthorRoleEnum
@@ -293,7 +242,6 @@ export type MangaAuthorUpdateManyMutationInput = {
 }
 
 export type MangaAuthorUncheckedUpdateManyInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
   mangaId?: Prisma.StringFieldUpdateOperationsInput | string
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumMangaAuthorRoleEnumFieldUpdateOperationsInput | $Enums.MangaAuthorRoleEnum
@@ -315,32 +263,21 @@ export type MangaAuthorMangaIdAuthorIdCompoundUniqueInput = {
 }
 
 export type MangaAuthorCountOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   mangaId?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   role?: Prisma.SortOrder
 }
 
-export type MangaAuthorAvgOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-}
-
 export type MangaAuthorMaxOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   mangaId?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   role?: Prisma.SortOrder
 }
 
 export type MangaAuthorMinOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   mangaId?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   role?: Prisma.SortOrder
-}
-
-export type MangaAuthorSumOrderByAggregateInput = {
-  id?: Prisma.SortOrder
 }
 
 export type MangaAuthorCreateNestedManyWithoutMangaInput = {
@@ -437,7 +374,6 @@ export type MangaAuthorCreateWithoutMangaInput = {
 }
 
 export type MangaAuthorUncheckedCreateWithoutMangaInput = {
-  id?: number
   authorId: string
   role: $Enums.MangaAuthorRoleEnum
 }
@@ -472,7 +408,6 @@ export type MangaAuthorScalarWhereInput = {
   AND?: Prisma.MangaAuthorScalarWhereInput | Prisma.MangaAuthorScalarWhereInput[]
   OR?: Prisma.MangaAuthorScalarWhereInput[]
   NOT?: Prisma.MangaAuthorScalarWhereInput | Prisma.MangaAuthorScalarWhereInput[]
-  id?: Prisma.IntFilter<"MangaAuthor"> | number
   mangaId?: Prisma.StringFilter<"MangaAuthor"> | string
   authorId?: Prisma.StringFilter<"MangaAuthor"> | string
   role?: Prisma.EnumMangaAuthorRoleEnumFilter<"MangaAuthor"> | $Enums.MangaAuthorRoleEnum
@@ -484,7 +419,6 @@ export type MangaAuthorCreateWithoutAuthorInput = {
 }
 
 export type MangaAuthorUncheckedCreateWithoutAuthorInput = {
-  id?: number
   mangaId: string
   role: $Enums.MangaAuthorRoleEnum
 }
@@ -516,7 +450,6 @@ export type MangaAuthorUpdateManyWithWhereWithoutAuthorInput = {
 }
 
 export type MangaAuthorCreateManyMangaInput = {
-  id?: number
   authorId: string
   role: $Enums.MangaAuthorRoleEnum
 }
@@ -527,19 +460,16 @@ export type MangaAuthorUpdateWithoutMangaInput = {
 }
 
 export type MangaAuthorUncheckedUpdateWithoutMangaInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumMangaAuthorRoleEnumFieldUpdateOperationsInput | $Enums.MangaAuthorRoleEnum
 }
 
 export type MangaAuthorUncheckedUpdateManyWithoutMangaInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumMangaAuthorRoleEnumFieldUpdateOperationsInput | $Enums.MangaAuthorRoleEnum
 }
 
 export type MangaAuthorCreateManyAuthorInput = {
-  id?: number
   mangaId: string
   role: $Enums.MangaAuthorRoleEnum
 }
@@ -550,13 +480,11 @@ export type MangaAuthorUpdateWithoutAuthorInput = {
 }
 
 export type MangaAuthorUncheckedUpdateWithoutAuthorInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
   mangaId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumMangaAuthorRoleEnumFieldUpdateOperationsInput | $Enums.MangaAuthorRoleEnum
 }
 
 export type MangaAuthorUncheckedUpdateManyWithoutAuthorInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
   mangaId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumMangaAuthorRoleEnumFieldUpdateOperationsInput | $Enums.MangaAuthorRoleEnum
 }
@@ -564,7 +492,6 @@ export type MangaAuthorUncheckedUpdateManyWithoutAuthorInput = {
 
 
 export type MangaAuthorSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
   mangaId?: boolean
   authorId?: boolean
   role?: boolean
@@ -573,7 +500,6 @@ export type MangaAuthorSelect<ExtArgs extends runtime.Types.Extensions.InternalA
 }, ExtArgs["result"]["mangaAuthor"]>
 
 export type MangaAuthorSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
   mangaId?: boolean
   authorId?: boolean
   role?: boolean
@@ -582,7 +508,6 @@ export type MangaAuthorSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
 }, ExtArgs["result"]["mangaAuthor"]>
 
 export type MangaAuthorSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
   mangaId?: boolean
   authorId?: boolean
   role?: boolean
@@ -591,13 +516,12 @@ export type MangaAuthorSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
 }, ExtArgs["result"]["mangaAuthor"]>
 
 export type MangaAuthorSelectScalar = {
-  id?: boolean
   mangaId?: boolean
   authorId?: boolean
   role?: boolean
 }
 
-export type MangaAuthorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "mangaId" | "authorId" | "role", ExtArgs["result"]["mangaAuthor"]>
+export type MangaAuthorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"mangaId" | "authorId" | "role", ExtArgs["result"]["mangaAuthor"]>
 export type MangaAuthorInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   manga?: boolean | Prisma.MangaDefaultArgs<ExtArgs>
   author?: boolean | Prisma.AuthorDefaultArgs<ExtArgs>
@@ -618,7 +542,6 @@ export type $MangaAuthorPayload<ExtArgs extends runtime.Types.Extensions.Interna
     author: Prisma.$AuthorPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: number
     mangaId: string
     authorId: string
     role: $Enums.MangaAuthorRoleEnum
@@ -705,8 +628,8 @@ export interface MangaAuthorDelegate<ExtArgs extends runtime.Types.Extensions.In
    * // Get first 10 MangaAuthors
    * const mangaAuthors = await prisma.mangaAuthor.findMany({ take: 10 })
    * 
-   * // Only select the `id`
-   * const mangaAuthorWithIdOnly = await prisma.mangaAuthor.findMany({ select: { id: true } })
+   * // Only select the `mangaId`
+   * const mangaAuthorWithMangaIdOnly = await prisma.mangaAuthor.findMany({ select: { mangaId: true } })
    * 
    */
   findMany<T extends MangaAuthorFindManyArgs>(args?: Prisma.SelectSubset<T, MangaAuthorFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MangaAuthorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -750,9 +673,9 @@ export interface MangaAuthorDelegate<ExtArgs extends runtime.Types.Extensions.In
    *   ]
    * })
    * 
-   * // Create many MangaAuthors and only return the `id`
-   * const mangaAuthorWithIdOnly = await prisma.mangaAuthor.createManyAndReturn({
-   *   select: { id: true },
+   * // Create many MangaAuthors and only return the `mangaId`
+   * const mangaAuthorWithMangaIdOnly = await prisma.mangaAuthor.createManyAndReturn({
+   *   select: { mangaId: true },
    *   data: [
    *     // ... provide data here
    *   ]
@@ -841,9 +764,9 @@ export interface MangaAuthorDelegate<ExtArgs extends runtime.Types.Extensions.In
    *   ]
    * })
    * 
-   * // Update zero or more MangaAuthors and only return the `id`
-   * const mangaAuthorWithIdOnly = await prisma.mangaAuthor.updateManyAndReturn({
-   *   select: { id: true },
+   * // Update zero or more MangaAuthors and only return the `mangaId`
+   * const mangaAuthorWithMangaIdOnly = await prisma.mangaAuthor.updateManyAndReturn({
+   *   select: { mangaId: true },
    *   where: {
    *     // ... provide filter here
    *   },
@@ -1047,7 +970,6 @@ export interface Prisma__MangaAuthorClient<T, Null = never, ExtArgs extends runt
  * Fields of the MangaAuthor model
  */
 export interface MangaAuthorFieldRefs {
-  readonly id: Prisma.FieldRef<"MangaAuthor", 'Int'>
   readonly mangaId: Prisma.FieldRef<"MangaAuthor", 'String'>
   readonly authorId: Prisma.FieldRef<"MangaAuthor", 'String'>
   readonly role: Prisma.FieldRef<"MangaAuthor", 'MangaAuthorRoleEnum'>

@@ -29,7 +29,7 @@ export const authors = new Elysia({
 		'/',
 		async ({ body, db, set }) => {
 			const data = await db.author.create({ data: body })
-			set.status = 201
+			set.status = 'Created'
 			return { data }
 		},
 		{

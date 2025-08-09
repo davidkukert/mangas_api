@@ -1,5 +1,5 @@
 import { setup } from '@app/setup'
-import Elysia from 'elysia'
+import Elysia, { NotFoundError } from 'elysia'
 import { UploadModel } from './model'
 
 export const uploads = new Elysia({
@@ -10,17 +10,10 @@ export const uploads = new Elysia({
 	.use(setup)
 	.post(
 		'/mangas/:id/cover',
-		async ({
-			HttpError,
-			db,
-			body: { cover },
-			params: { id },
-			storage,
-			set,
-		}) => {
+		async ({ db, body: { cover }, params: { id }, storage, set }) => {
 			const manga = await db.manga.findUnique({ where: { id } })
 			if (!manga) {
-				throw HttpError.NotFound('Manga not found')
+				throw new NotFoundError('Manga not found')
 			}
 
 			await storage.uploadFile(
@@ -41,11 +34,11 @@ export const uploads = new Elysia({
 	)
 	.get(
 		'/mangas/:id/cover',
-		async ({ HttpError, params: { id }, storage }) => {
+		async ({ params: { id }, storage }) => {
 			const cover = storage.getFile(`mangas/${id}/cover.avif`)
 			const coverExists = await cover.exists()
 			if (!coverExists) {
-				throw HttpError.NotFound('Cover not found')
+				throw new NotFoundError('Cover not found')
 			}
 
 			return new Response(cover.stream(), {
@@ -60,10 +53,10 @@ export const uploads = new Elysia({
 	)
 	.delete(
 		'/mangas/:id/cover',
-		async ({ HttpError, params: { id }, storage }) => {
+		async ({ params: { id }, storage }) => {
 			const cover = storage.getFile(`mangas/${id}/cover.avif`)
 			if (!cover.exists()) {
-				throw HttpError.NotFound('Cover not found')
+				throw new NotFoundError('Cover not found')
 			}
 
 			await cover.delete()
@@ -79,21 +72,15 @@ export const uploads = new Elysia({
 	)
 	.post(
 		'/chapters/:id/pages',
-		async ({
-			HttpError,
-			body: { pages },
-			params: { id },
-			db,
-			set,
-			storage,
-		}) => {
+		async ({ body: { pages }, params: { id }, db, set, storage }) => {
 			const chapter = await db.chapter.findUnique({ where: { id } })
 			if (!chapter) {
-				throw HttpError.NotFound('Chapter not found')
+				throw new NotFoundError('Chapter not found')
 			}
 
 			if (pages.some((page) => !/^\d+\.avif$/i.test(page.name))) {
-				throw HttpError.BadRequest(
+				set.status = 'Bad Request'
+				throw new Error(
 					'Some page have invalid name, only numbers are allowed in page name',
 				)
 			}
@@ -118,10 +105,10 @@ export const uploads = new Elysia({
 	)
 	.get(
 		'/chapters/:id/pages/:number',
-		async ({ HttpError, params: { id, number }, db, storage }) => {
+		async ({ params: { id, number }, db, storage }) => {
 			const chapter = await db.chapter.findUnique({ where: { id } })
 			if (!chapter) {
-				throw HttpError.NotFound('Chapter not found')
+				throw new NotFoundError('Chapter not found')
 			}
 
 			const page = storage.getFile(
@@ -129,7 +116,7 @@ export const uploads = new Elysia({
 			)
 			const pageExists = await page.exists()
 			if (!pageExists) {
-				throw HttpError.NotFound('Page not found')
+				throw new NotFoundError('Page not found')
 			}
 
 			return new Response(page.stream(), {
@@ -144,10 +131,10 @@ export const uploads = new Elysia({
 	)
 	.delete(
 		'/chapters/:id/pages/:number',
-		async ({ HttpError, params: { id, number }, db, storage }) => {
+		async ({ params: { id, number }, db, storage }) => {
 			const chapter = await db.chapter.findUnique({ where: { id } })
 			if (!chapter) {
-				throw HttpError.NotFound('Chapter not found')
+				throw new NotFoundError('Chapter not found')
 			}
 
 			const page = storage.getFile(
@@ -155,7 +142,7 @@ export const uploads = new Elysia({
 			)
 			const pageExists = await page.exists()
 			if (!pageExists) {
-				throw HttpError.NotFound('Page not found')
+				throw new NotFoundError('Page not found')
 			}
 
 			await page.delete()

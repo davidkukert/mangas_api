@@ -5,13 +5,18 @@ import {
 	PrismaClientUnknownRequestError,
 } from '@db/prisma/internal/prismaNamespace'
 import { PrismaPg } from '@prisma/adapter-pg'
-import Elysia from 'elysia'
+import Elysia, { type StatusMap } from 'elysia'
 
 const adapter = new PrismaPg({
 	connectionString: envVars.DATABASE_URL,
 })
 
 const prisma = new PrismaClient({ adapter })
+
+interface HandleErrorReturn {
+	status: number | keyof StatusMap
+	message: string
+}
 
 export const prismaDecorator = new Elysia({
 	name: 'Decorator.Prisma',
@@ -22,11 +27,11 @@ export const prismaDecorator = new Elysia({
 			error: PrismaClientKnownRequestError,
 			modelName: Prisma.ModelName,
 			messages: Record<string, string>,
-		) {
+		): HandleErrorReturn {
 			switch (error.code) {
 				case 'P2002':
 					return {
-						status: 409,
+						status: 'Conflict',
 						message:
 							messages.P2002 ??
 							`${error.meta?.modelName ?? modelName ?? ''} already exists`,
@@ -34,7 +39,7 @@ export const prismaDecorator = new Elysia({
 
 				case 'P2003':
 					return {
-						status: 404,
+						status: 'Not Found',
 						message:
 							messages.P2003 ??
 							`${error.meta?.modelName ?? modelName ?? ''} not found`,
@@ -42,15 +47,15 @@ export const prismaDecorator = new Elysia({
 
 				case 'P2011':
 					return {
-						status: 404,
+						status: 'Not Found',
 						message:
-							messages.P2003 ??
+							messages.P2011 ??
 							`${error.meta?.modelName ?? modelName ?? ''} not found`,
 					}
 
 				case 'P2025':
 					return {
-						status: 404,
+						status: 'Not Found',
 						message:
 							messages.P2025 ??
 							`${error.meta?.modelName ?? modelName ?? ''} not found`,
@@ -58,12 +63,12 @@ export const prismaDecorator = new Elysia({
 
 				case 'ECONNREFUSED':
 					return {
-						status: 503,
+						status: 'Service Unavailable',
 						message: 'Database connection refused',
 					}
 				default:
 					return {
-						status: 500,
+						status: 'Internal Server Error',
 						message: 'Internal server error',
 					}
 			}

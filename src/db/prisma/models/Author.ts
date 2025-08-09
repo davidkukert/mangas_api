@@ -178,7 +178,7 @@ type GetAuthorGroupByPayload<T extends AuthorGroupByArgs> = Prisma.PrismaPromise
           : Prisma.GetScalarType<T[P], AuthorGroupByOutputType[P]>
       }
     >
-  > 
+  >
 
 
 
