@@ -1,4 +1,4 @@
-# Mangas API
+# DK Mangas API
 
 API para gerenciamento de conteúdo e acesso para um site ou app de leitura de quadrinhos.
 Como por exemplo: "Mangas", "Comics", "Manhuas", "Manhwas" e outros conteúdos similares.
