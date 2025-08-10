@@ -1,0 +1,198 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  MANAGER
+  UPLOADER
+  AUTHOR
+  READERVIP
+  READER
+}
+
+model User {
+  id        String   @id @default(ulid())
+  username  String   @unique
+  email     String   @unique
+  password  String
+  role      UserRole @default(READER)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  authorProfile   Author[]
+  followingMangas MangaFollower[]
+  readingHistory  ReadingHistory[]
+
+  @@map("tb_users")
+}
+
+enum StatusEnum {
+  ONGOING
+  COMPLETED
+  HIATUS
+  CANCELLED
+}
+
+enum ContentRatingEnum {
+  SAFE
+  SUGGESTIVE
+  EROTICA
+  PORNOGRAPHIC
+}
+
+enum StateEnum {
+  DRAFT
+  PUBLISHED
+  SUBMITTED
+  REJECTED
+}
+
+enum DemographicEnum {
+  SHOUNEN
+  SHOUJO
+  SEINEN
+  JOSEI
+}
+
+model Manga {
+  id String @id @default(ulid())
+
+  title                  String            @unique
+  alternativeTitles      String[]          @map("alternative_titles")
+  description            String?
+  originalLanguage       String            @map("original_language")
+  publicationDemographic DemographicEnum?  @map("publication_demographic")
+  status                 StatusEnum
+  year                   Int?
+  contentRating          ContentRatingEnum @map("content_rating")
+  state                  StateEnum
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  tags      Tag[]           @relation("tb_mangas_tags")
+  authors   MangaAuthor[]
+  followers MangaFollower[]
+
+  chapters Chapter[]
+
+  @@map("tb_mangas")
+}
+
+model Author {
+  id String @id @default(ulid())
+
+  name        String  @unique
+  biography   String?
+  socialLinks Json?   @map("social_links")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  userId String? @unique @map("user_id")
+  user   User?   @relation(fields: [userId], references: [id])
+
+  mangas MangaAuthor[]
+
+  @@map("tb_authors")
+}
+
+enum TagGroupEnum {
+  GENRE
+  THEME
+  FORMAT
+  CONTENT
+}
+
+model Tag {
+  id String @id @default(ulid())
+
+  name        String       @unique
+  description String?
+  group       TagGroupEnum
+
+  mangas Manga[] @relation("tb_mangas_tags")
+
+  @@map("tb_tags")
+}
+
+model Chapter {
+  id String @id @default(ulid())
+
+  number             String
+  title              String?
+  volume             String?
+  pages              Int
+  translatedLanguage String  @map("translated_language")
+
+  mangaId String @map("manga_id")
+  manga   Manga  @relation(fields: [mangaId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  readingHistory ReadingHistory[]
+
+  @@unique([mangaId, number])
+  @@map("tb_chapters")
+}
+
+enum MangaAuthorRoleEnum {
+  AUTHOR
+  ARTIST
+}
+
+model MangaAuthor {
+  mangaId  String              @map("manga_id")
+  authorId String              @map("author_id")
+  role     MangaAuthorRoleEnum
+
+  manga  Manga  @relation(fields: [mangaId], references: [id], onDelete: Cascade)
+  author Author @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@id([mangaId, authorId])
+  @@map("manga_authors")
+}
+
+enum FollowStatusEnum {
+  READING
+  COMPLETED
+  ONHOLD
+  DROPPED
+  PLANTOREAD
+}
+
+model MangaFollower {
+  mangaId    String           @map("manga_id")
+  followerId String           @map("follower_id")
+  status     FollowStatusEnum @default(PLANTOREAD)
+
+  manga    Manga @relation(fields: [mangaId], references: [id], onDelete: Cascade)
+  follower User  @relation(fields: [followerId], references: [id], onDelete: Cascade)
+
+  @@id([mangaId, followerId])
+  @@map("manga_followers")
+}
+
+model ReadingHistory {
+  chapterId String   @map("chapter_id")
+  userId    String   @map("user_id")
+  readingAt DateTime @default(now()) @map("reading_at")
+  page      Int?
+
+  chapter Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([chapterId, userId])
+  @@map("reading_history")
+}
