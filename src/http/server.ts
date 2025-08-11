@@ -1,5 +1,8 @@
 import Elysia from 'elysia'
+import users from '@/modules/users'
 
-const app = new Elysia().listen({ port: 3333, hostname: '0.0.0.0' })
+const app = new Elysia({ aot: true, normalize: 'typebox' })
+	.use(users)
+	.listen({ port: 3333, hostname: '0.0.0.0' })
 
 console.log(`DK Mangas API is running at ${app.server?.url}`)
