@@ -1,11 +1,15 @@
 import { Prisma } from '@db/prisma/client'
 import Elysia from 'elysia'
 import { setup } from '@/setup'
+import authors from './authors'
 import { MangaModel } from './model'
+import tags from './tags'
 
 export default new Elysia({ prefix: '/mangas' })
 	.use(setup)
 	.use(MangaModel)
+	.use(authors)
+	.use(tags)
 	.get(
 		'/',
 		async ({ db }) => {
