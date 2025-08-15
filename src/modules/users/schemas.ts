@@ -1,5 +1,5 @@
 import { UserRole } from '@db/prisma/enums'
-import { t } from 'elysia'
+import { type Static, t } from 'elysia'
 
 export const UserRoleEnumSchema = t.Enum(UserRole)
 
@@ -42,3 +42,5 @@ export const UserListResponseSchema = t.Object(
 	},
 	{ additionalProperties: false },
 )
+
+export type UserPlain = Static<typeof UserPlain>
