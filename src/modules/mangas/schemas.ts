@@ -1,6 +1,7 @@
 import {
 	ContentRatingEnum,
 	DemographicEnum,
+	MangaAuthorRoleEnum,
 	StateEnum,
 	StatusEnum,
 } from '@db/prisma/enums'
@@ -58,6 +59,17 @@ export const MangaResponseSchema = t.Object(
 export const MangaListResponseSchema = t.Object(
 	{
 		data: t.Array(MangaPlain),
+	},
+	{ additionalProperties: false },
+)
+
+export const MangaAuthorRoleEnumSchema = t.Enum(MangaAuthorRoleEnum, {
+	default: MangaAuthorRoleEnum.AUTHOR,
+})
+
+export const MangaAuthorQueryRouteSchema = t.Object(
+	{
+		role: MangaAuthorRoleEnumSchema,
 	},
 	{ additionalProperties: false },
 )
