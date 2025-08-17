@@ -1,4 +1,4 @@
-import Elysia, { NotFoundError } from 'elysia'
+import Elysia from 'elysia'
 import { setup } from '@/setup'
 import { UploadModel } from './model'
 
@@ -7,10 +7,17 @@ export default new Elysia({ prefix: '/uploads' })
 	.use(setup)
 	.post(
 		'/mangas/:id/cover',
-		async ({ db, body: { cover }, params: { id }, storage, set }) => {
+		async ({
+			HttpError,
+			db,
+			body: { cover },
+			params: { id },
+			storage,
+			set,
+		}) => {
 			const manga = await db.manga.findUnique({ where: { id } })
 			if (!manga) {
-				throw new NotFoundError('Manga não encontrado')
+				throw HttpError.NotFound('Manga não encontrado')
 			}
 
 			await storage.uploadFile(
@@ -31,11 +38,11 @@ export default new Elysia({ prefix: '/uploads' })
 	)
 	.get(
 		'/mangas/:id/cover',
-		async ({ params: { id }, storage }) => {
+		async ({ HttpError, params: { id }, storage }) => {
 			const cover = storage.getFile(`mangas/${id}/cover.avif`)
 			const coverExists = await cover.exists()
 			if (!coverExists) {
-				throw new NotFoundError('Capa não encontrada!')
+				throw HttpError.NotFound('Capa não encontrada!')
 			}
 
 			return new Response(cover.stream(), {
@@ -50,10 +57,10 @@ export default new Elysia({ prefix: '/uploads' })
 	)
 	.delete(
 		'/mangas/:id/cover',
-		async ({ params: { id }, storage }) => {
+		async ({ HttpError, params: { id }, storage }) => {
 			const cover = storage.getFile(`mangas/${id}/cover.avif`)
 			if (!cover.exists()) {
-				throw new NotFoundError('Capa não encontrada!')
+				throw HttpError.NotFound('Capa não encontrada!')
 			}
 
 			await cover.delete()
@@ -69,15 +76,21 @@ export default new Elysia({ prefix: '/uploads' })
 	)
 	.post(
 		'/chapters/:id/pages',
-		async ({ body: { pages }, params: { id }, db, set, storage }) => {
+		async ({
+			HttpError,
+			body: { pages },
+			params: { id },
+			db,
+			set,
+			storage,
+		}) => {
 			const chapter = await db.chapter.findUnique({ where: { id } })
 			if (!chapter) {
-				throw new NotFoundError('Capítulo não encontrado!')
+				throw HttpError.NotFound('Capítulo não encontrado!')
 			}
 
 			if (pages.some((page) => !/^\d+\.avif$/i.test(page.name))) {
-				set.status = 'Bad Request'
-				throw new Error(
+				throw HttpError.BadRequest(
 					'Algumas paginas estão com o nome invalido, favor usar somente sequencia numerica para ordernar as paginas!',
 				)
 			}
@@ -90,7 +103,7 @@ export default new Elysia({ prefix: '/uploads' })
 			}
 
 			set.status = 201
-			return { success: true }
+			return { message: 'Páginas do capítulo enviadas com sucesso!' }
 		},
 		{
 			body: 'UploadChapterPages',
@@ -102,10 +115,10 @@ export default new Elysia({ prefix: '/uploads' })
 	)
 	.get(
 		'/chapters/:id/pages/:number',
-		async ({ params: { id, number }, db, storage }) => {
+		async ({ HttpError, params: { id, number }, db, storage }) => {
 			const chapter = await db.chapter.findUnique({ where: { id } })
 			if (!chapter) {
-				throw new NotFoundError('Capítulo não encontrado!')
+				throw HttpError.NotFound('Capítulo não encontrado!')
 			}
 
 			const page = storage.getFile(
@@ -113,7 +126,7 @@ export default new Elysia({ prefix: '/uploads' })
 			)
 			const pageExists = await page.exists()
 			if (!pageExists) {
-				throw new NotFoundError('Página do capítulo não encontrada!')
+				throw HttpError.NotFound('Página do capítulo não encontrada!')
 			}
 
 			return new Response(page.stream(), {
@@ -128,10 +141,10 @@ export default new Elysia({ prefix: '/uploads' })
 	)
 	.delete(
 		'/chapters/:id/pages/:number',
-		async ({ params: { id, number }, db, storage }) => {
+		async ({ HttpError, params: { id, number }, db, storage }) => {
 			const chapter = await db.chapter.findUnique({ where: { id } })
 			if (!chapter) {
-				throw new NotFoundError('Capítulo não encontrado!')
+				throw HttpError.NotFound('Capítulo não encontrado!')
 			}
 
 			const page = storage.getFile(
@@ -139,7 +152,7 @@ export default new Elysia({ prefix: '/uploads' })
 			)
 			const pageExists = await page.exists()
 			if (!pageExists) {
-				throw new NotFoundError('Página do capítulo não encontrada!')
+				throw HttpError.NotFound('Página do capítulo não encontrada!')
 			}
 
 			await page.delete()

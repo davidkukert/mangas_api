@@ -8,15 +8,14 @@ export default new Elysia({ name: 'manga-tags-manager', prefix: '/:id/tags' })
 	.use(setup)
 	.post(
 		'/:tagId',
-		async ({ db, params: { id, tagId }, set }) => {
+		async ({ HttpError, db, params: { id, tagId } }) => {
 			const tag = await db.tag.findUniqueOrThrow({
 				where: { id: tagId },
 				include: { mangas: true },
 			})
 
 			if (tag.mangas.some((manga) => manga.id === id)) {
-				set.status = 409
-				throw new Error('Tag já adicionada ao manga')
+				throw HttpError.Conflict('Tag já adicionada ao manga')
 			}
 
 			await db.manga.update({
@@ -39,15 +38,14 @@ export default new Elysia({ name: 'manga-tags-manager', prefix: '/:id/tags' })
 	)
 	.delete(
 		'/:tagId',
-		async ({ db, params: { id, tagId }, set }) => {
+		async ({ HttpError, db, params: { id, tagId } }) => {
 			const tag = await db.tag.findUniqueOrThrow({
 				where: { id: tagId },
 				include: { mangas: true },
 			})
 
 			if (!tag.mangas.some((manga) => manga.id === id)) {
-				set.status = 400
-				throw new Error('Tag não está associada a este manga!')
+				throw HttpError.BadRequest('Tag não está associada a este manga!')
 			}
 
 			await db.manga.update({
@@ -85,9 +83,5 @@ export default new Elysia({ name: 'manga-tags-manager', prefix: '/:id/tags' })
 			const { message, status } = handleError(error, 'Manga')
 			set.status = status
 			return { message }
-		}
-
-		if (error instanceof Error) {
-			return { message: error.message }
 		}
 	})

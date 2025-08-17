@@ -4,6 +4,7 @@ import jwt from '@elysiajs/jwt'
 import Elysia from 'elysia'
 import { dbDecorator } from '@/db'
 import { envVars } from '@/env'
+import { errorsDecorator } from '@/errors'
 import {
 	type AppAbilities,
 	defineAbilityFor,
@@ -12,13 +13,14 @@ import {
 
 export const AuthService = new Elysia({ name: 'auth-service' })
 	.use(dbDecorator)
+	.use(errorsDecorator)
 	.use(bearer())
 	.use(
 		jwt({
 			secret: envVars.JWT_SECRET,
 		}),
 	)
-	.derive({ as: 'global' }, ({ bearer, db, jwt, set }) => ({
+	.derive({ as: 'global' }, ({ bearer, db, jwt, HttpError }) => ({
 		auth: {
 			async genToken(userId: string) {
 				const token = await jwt.sign({ sub: userId })
@@ -42,19 +44,19 @@ export const AuthService = new Elysia({ name: 'auth-service' })
 			currentUser: { role: 'guest' } as UserAbility,
 			authorization(user: UserAbility, ...args: CanParameters<AppAbilities>) {
 				if (defineAbilityFor(user).cannot(...args)) {
-					set.status = 'Forbidden'
-					throw new Error('You are not allowed to perform this action')
+					throw HttpError.Forbidden(
+						'You are not allowed to perform this action',
+					)
 				}
 			},
 		},
 	}))
 	.macro({
 		privateRoute: {
-			resolve: async ({ auth, set }) => {
+			resolve: async ({ auth, HttpError }) => {
 				const currentUser = await auth.getCurrentUser()
 				if (!currentUser) {
-					set.status = 'Unauthorized'
-					throw new Error('Unauthorized')
+					throw HttpError.Unauthorized()
 				}
 				return {
 					auth: {

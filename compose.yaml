@@ -3,6 +3,7 @@ name: dk-mangas-api
 services:
   database:
     image: postgres:latest
+    restart: always
     environment:
       - POSTGRES_USER=docker
       - POSTGRES_PASSWORD=docker
@@ -11,6 +12,17 @@ services:
       - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
-
+  api:
+    image: dk-mangas-api
+    build: .
+    ports:
+      - "3333:3333"
+    depends_on:
+      - database
+    env_file:
+      - .env.local
+    entrypoint: "./entrypoint.sh"
+    
+    
 volumes:
   db_data:

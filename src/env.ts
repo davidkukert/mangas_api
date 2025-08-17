@@ -7,6 +7,7 @@ const envSchema = z.object({
 	SECRET_ACCESS_KEY: z.string().min(1, 'SECRET_ACCESS_KEY is required'),
 	BUCKET_NAME: z.string().min(1, 'BUCKET_NAME is required'),
 	ENDPOINT_URL: z.string().url().min(1, 'ENDPOINT_URL is required'),
+	PORT: z.coerce.number().default(3333).optional(),
 })
 
 export const envVars = envSchema.parse(process.env)
