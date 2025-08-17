@@ -12,7 +12,7 @@ export default new Elysia({ prefix: '/users' })
 			const data = await db.user.findMany({ omit: { password: true } })
 			return { data }
 		},
-		{ response: 'UserListResponse' },
+		{ response: 'UserListResponse', publicRoute: true },
 	)
 	.get(
 		'/:id',
@@ -22,6 +22,7 @@ export default new Elysia({ prefix: '/users' })
 		},
 		{
 			response: 'UserResponse',
+			publicRoute: true,
 		},
 	)
 	.post(
@@ -43,6 +44,7 @@ export default new Elysia({ prefix: '/users' })
 		{
 			body: 'UserCreateInput',
 			response: 'UserResponse',
+			publicRoute: true,
 		},
 	)
 	.put(
@@ -64,12 +66,35 @@ export default new Elysia({ prefix: '/users' })
 		{
 			body: 'UserUpdateInput',
 			response: 'UserResponse',
+			privateRoute: true,
+			async beforeHandle({ auth, db, params: { id } }) {
+				const user = await db.user.findUniqueOrThrow({ where: { id } })
+				auth.authorization(auth.currentUser, 'update', {
+					__typename: 'User',
+					id: user.id,
+					role: user.role,
+				})
+			},
 		},
 	)
-	.delete('/:id', async ({ db, params: { id } }) => {
-		await db.user.delete({ where: { id } })
-		return { message: 'Usuário deletado com sucesso!' }
-	})
+	.delete(
+		'/:id',
+		async ({ db, params: { id } }) => {
+			await db.user.delete({ where: { id } })
+			return { message: 'Usuário deletado com sucesso!' }
+		},
+		{
+			privateRoute: true,
+			async beforeHandle({ auth, db, params: { id } }) {
+				const user = await db.user.findUniqueOrThrow({ where: { id } })
+				auth.authorization(auth.currentUser, 'delete', {
+					__typename: 'User',
+					id: user.id,
+					role: user.role,
+				})
+			},
+		},
+	)
 	.onError(({ error, handleError, set }) => {
 		if (error instanceof Prisma.PrismaClientKnownRequestError) {
 			const { message, status } = handleError(error, 'User')

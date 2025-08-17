@@ -23,14 +23,29 @@ export default new Elysia({
 			set.status = 'Created'
 			return { message: 'Autor adicionado com sucesso ao manga!' }
 		},
-		{ query: 'MangaAuthorQueryRoute' },
+		{
+			query: 'MangaAuthorQueryRoute',
+			privateRoute: true,
+			beforeHandle({ auth }) {
+				auth.authorization(auth.currentUser, 'add_author', 'Manga')
+			},
+		},
 	)
-	.delete('/:authorId', async ({ db, params: { id: mangaId, authorId } }) => {
-		await db.mangaAuthor.delete({
-			where: { mangaId_authorId: { authorId, mangaId } },
-		})
-		return { message: 'Autor removido com sucesso do manga!' }
-	})
+	.delete(
+		'/:authorId',
+		async ({ db, params: { id: mangaId, authorId } }) => {
+			await db.mangaAuthor.delete({
+				where: { mangaId_authorId: { authorId, mangaId } },
+			})
+			return { message: 'Autor removido com sucesso do manga!' }
+		},
+		{
+			privateRoute: true,
+			beforeHandle({ auth }) {
+				auth.authorization(auth.currentUser, 'remove_author', 'Manga')
+			},
+		},
+	)
 	.onError(({ error, handleError, set }) => {
 		if (error instanceof Prisma.PrismaClientKnownRequestError) {
 			let modelName = 'MangaAuthor'

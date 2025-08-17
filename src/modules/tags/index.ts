@@ -12,7 +12,7 @@ export default new Elysia({ prefix: '/tags' })
 			const data = await db.tag.findMany()
 			return { data }
 		},
-		{ response: 'TagListResponse' },
+		{ response: 'TagListResponse', publicRoute: true },
 	)
 	.get(
 		'/:id',
@@ -22,6 +22,7 @@ export default new Elysia({ prefix: '/tags' })
 		},
 		{
 			response: 'TagResponse',
+			publicRoute: true,
 		},
 	)
 	.post(
@@ -34,6 +35,10 @@ export default new Elysia({ prefix: '/tags' })
 		{
 			response: 'TagResponse',
 			body: 'TagCreatePlainInput',
+			privateRoute: true,
+			beforeHandle({ auth }) {
+				auth.authorization(auth.currentUser, 'create', 'Tag')
+			},
 		},
 	)
 	.put(
@@ -45,12 +50,25 @@ export default new Elysia({ prefix: '/tags' })
 		{
 			response: 'TagResponse',
 			body: 'TagUpdatePlainInput',
+			privateRoute: true,
+			beforeHandle({ auth }) {
+				auth.authorization(auth.currentUser, 'update', 'Tag')
+			},
 		},
 	)
-	.delete('/:id', async ({ db, params: { id } }) => {
-		await db.tag.delete({ where: { id } })
-		return { message: 'Tag deletada com sucesso!' }
-	})
+	.delete(
+		'/:id',
+		async ({ db, params: { id } }) => {
+			await db.tag.delete({ where: { id } })
+			return { message: 'Tag deletada com sucesso!' }
+		},
+		{
+			privateRoute: true,
+			beforeHandle({ auth }) {
+				auth.authorization(auth.currentUser, 'delete', 'Tag')
+			},
+		},
+	)
 	.onError(({ error, handleError, set }) => {
 		if (error instanceof Prisma.PrismaClientKnownRequestError) {
 			const { message, status } = handleError(error, 'Tag')

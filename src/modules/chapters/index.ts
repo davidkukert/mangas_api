@@ -12,7 +12,7 @@ export default new Elysia({ prefix: '/chapters' })
 			const data = await db.chapter.findMany()
 			return { data }
 		},
-		{ response: 'ChapterListResponse' },
+		{ response: 'ChapterListResponse', publicRoute: true },
 	)
 	.get(
 		'/:id',
@@ -22,6 +22,7 @@ export default new Elysia({ prefix: '/chapters' })
 		},
 		{
 			response: 'ChapterResponse',
+			publicRoute: true,
 		},
 	)
 	.post(
@@ -34,6 +35,10 @@ export default new Elysia({ prefix: '/chapters' })
 		{
 			response: 'ChapterResponse',
 			body: 'ChapterCreatePlainInput',
+			privateRoute: true,
+			beforeHandle({ auth }) {
+				auth.authorization(auth.currentUser, 'create', 'Chapter')
+			},
 		},
 	)
 	.put(
@@ -45,12 +50,25 @@ export default new Elysia({ prefix: '/chapters' })
 		{
 			response: 'ChapterResponse',
 			body: 'ChapterUpdatePlainInput',
+			privateRoute: true,
+			beforeHandle({ auth }) {
+				auth.authorization(auth.currentUser, 'update', 'Chapter')
+			},
 		},
 	)
-	.delete('/:id', async ({ db, params: { id } }) => {
-		await db.chapter.delete({ where: { id } })
-		return { message: 'Capítulo deletado com sucesso!' }
-	})
+	.delete(
+		'/:id',
+		async ({ db, params: { id } }) => {
+			await db.chapter.delete({ where: { id } })
+			return { message: 'Capítulo deletado com sucesso!' }
+		},
+		{
+			privateRoute: true,
+			beforeHandle({ auth }) {
+				auth.authorization(auth.currentUser, 'delete', 'Chapter')
+			},
+		},
+	)
 	.onError(({ error, handleError, set }) => {
 		if (error instanceof Prisma.PrismaClientKnownRequestError) {
 			const { message, status } = handleError(error, 'Chapter')

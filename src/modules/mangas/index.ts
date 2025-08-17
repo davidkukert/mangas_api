@@ -16,7 +16,7 @@ export default new Elysia({ prefix: '/mangas' })
 			const data = await db.manga.findMany()
 			return { data }
 		},
-		{ response: 'MangaListResponse' },
+		{ response: 'MangaListResponse', publicRoute: true },
 	)
 	.get(
 		'/:id',
@@ -26,6 +26,7 @@ export default new Elysia({ prefix: '/mangas' })
 		},
 		{
 			response: 'MangaResponse',
+			publicRoute: true,
 		},
 	)
 	.post(
@@ -38,6 +39,10 @@ export default new Elysia({ prefix: '/mangas' })
 		{
 			body: 'MangaCreatePlainInput',
 			response: 'MangaResponse',
+			privateRoute: true,
+			beforeHandle({ auth }) {
+				auth.authorization(auth.currentUser, 'create', 'Manga')
+			},
 		},
 	)
 	.put(
@@ -49,12 +54,25 @@ export default new Elysia({ prefix: '/mangas' })
 		{
 			body: 'MangaUpdatePlainInput',
 			response: 'MangaResponse',
+			privateRoute: true,
+			beforeHandle({ auth }) {
+				auth.authorization(auth.currentUser, 'update', 'Manga')
+			},
 		},
 	)
-	.delete('/:id', async ({ db, params: { id } }) => {
-		await db.manga.delete({ where: { id } })
-		return { message: 'Manga deletado com sucesso!' }
-	})
+	.delete(
+		'/:id',
+		async ({ db, params: { id } }) => {
+			await db.manga.delete({ where: { id } })
+			return { message: 'Manga deletado com sucesso!' }
+		},
+		{
+			privateRoute: true,
+			beforeHandle({ auth }) {
+				auth.authorization(auth.currentUser, 'delete', 'Manga')
+			},
+		},
+	)
 	.onError(({ error, handleError, set }) => {
 		if (error instanceof Prisma.PrismaClientKnownRequestError) {
 			const { message, status } = handleError(error, 'Manga')

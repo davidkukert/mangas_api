@@ -13,7 +13,7 @@ export default new Elysia({ prefix: '/authors' })
 			const data = await db.author.findMany()
 			return { data } as AuthorListResponse
 		},
-		{ response: 'AuthorListResponse' },
+		{ response: 'AuthorListResponse', publicRoute: true },
 	)
 	.get(
 		'/:id',
@@ -23,6 +23,7 @@ export default new Elysia({ prefix: '/authors' })
 		},
 		{
 			response: 'AuthorResponse',
+			publicRoute: true,
 		},
 	)
 	.post(
@@ -35,6 +36,10 @@ export default new Elysia({ prefix: '/authors' })
 		{
 			response: 'AuthorResponse',
 			body: 'AuthorCreatePlainInput',
+			privateRoute: true,
+			beforeHandle({ auth }) {
+				auth.authorization(auth.currentUser, 'create', 'Author')
+			},
 		},
 	)
 	.put(
@@ -46,12 +51,25 @@ export default new Elysia({ prefix: '/authors' })
 		{
 			response: 'AuthorResponse',
 			body: 'AuthorUpdatePlainInput',
+			privateRoute: true,
+			beforeHandle({ auth }) {
+				auth.authorization(auth.currentUser, 'update', 'Author')
+			},
 		},
 	)
-	.delete('/:id', async ({ db, params: { id } }) => {
-		await db.author.delete({ where: { id } })
-		return { message: 'Autor deletado com sucesso!' }
-	})
+	.delete(
+		'/:id',
+		async ({ db, params: { id } }) => {
+			await db.author.delete({ where: { id } })
+			return { message: 'Autor deletado com sucesso!' }
+		},
+		{
+			privateRoute: true,
+			beforeHandle({ auth }) {
+				auth.authorization(auth.currentUser, 'delete', 'Author')
+			},
+		},
+	)
 	.onError(({ error, handleError, set }) => {
 		if (error instanceof Prisma.PrismaClientKnownRequestError) {
 			const { message, status } = handleError(error, 'Author')
