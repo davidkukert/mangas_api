@@ -3,7 +3,7 @@ import Elysia from 'elysia'
 import { setup } from '@/setup'
 import { ReadingHistoryModel } from './model'
 
-export const readingHistory = new Elysia({
+export default new Elysia({
 	name: 'Module.ReadingHistory',
 	prefix: '/reading-history',
 })
