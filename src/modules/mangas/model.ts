@@ -3,6 +3,7 @@ import Elysia, { t } from 'elysia'
 import {
 	MangaAuthorQueryRouteSchema,
 	MangaCreatePlainInputSchema,
+	MangaFollowQueryRouteSchema,
 	MangaListResponseSchema,
 	MangaPlain,
 	MangaResponseSchema,
@@ -18,4 +19,5 @@ export const MangaModel = new Elysia({ name: 'manga-model' }).model({
 	MangaResponse: MangaResponseSchema,
 	MangaListResponse: MangaListResponseSchema,
 	MangaAuthorQueryRoute: MangaAuthorQueryRouteSchema,
+	MangaFollowQueryRoute: MangaFollowQueryRouteSchema,
 })

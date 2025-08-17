@@ -2,6 +2,7 @@ import { Prisma } from '@db/prisma/client'
 import Elysia from 'elysia'
 import { setup } from '@/setup'
 import authors from './authors'
+import follows from './follows'
 import { MangaModel } from './model'
 import tags from './tags'
 
@@ -10,6 +11,7 @@ export default new Elysia({ prefix: '/mangas' })
 	.use(MangaModel)
 	.use(authors)
 	.use(tags)
+	.use(follows)
 	.get(
 		'/',
 		async ({ db }) => {

@@ -1,6 +1,7 @@
 import {
 	ContentRatingEnum,
 	DemographicEnum,
+	FollowStatusEnum,
 	MangaAuthorRoleEnum,
 	StateEnum,
 	StatusEnum,
@@ -73,3 +74,9 @@ export const MangaAuthorQueryRouteSchema = t.Object(
 	},
 	{ additionalProperties: false },
 )
+
+export const FollowStatusEnumSchema = t.Enum(FollowStatusEnum)
+
+export const MangaFollowQueryRouteSchema = t.Object({
+	status: t.Optional(FollowStatusEnumSchema),
+})
