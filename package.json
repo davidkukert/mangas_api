@@ -29,8 +29,5 @@
     "start:js": "NODE_ENV=production bun dist/server.js",
     "test": "bun test",
     "seed": "bun run prisma/seed.ts"
-  },
-  "prisma": {
-    "seed": "bun run prisma/seed.ts"
   }
 }
