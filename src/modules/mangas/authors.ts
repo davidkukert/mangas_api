@@ -14,6 +14,10 @@ export default new Elysia({
 		async ({ db, params: { id } }) => {
 			const data = await db.mangaAuthor.findMany({
 				where: { mangaId: id },
+				select: {
+					author: {},
+					role: true,
+				},
 			})
 
 			return { data }
