@@ -15,8 +15,6 @@ RUN bun install --frozen-lockfile --production
 # Copiando o restante dos arquivos
 COPY . .
 
-RUN rm .env
-
 COPY entrypoint.sh .
 RUN chmod +x entrypoint.sh
 ENTRYPOINT ["./entrypoint.sh"]
