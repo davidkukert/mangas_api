@@ -22,7 +22,7 @@ export const ChapterUpdatePlainInputSchema = t.Partial(
 
 export const ChapterPlain = t.Object({
 	id: t.String(),
-	number: t.String({ pattern: '^[0-9]+(\\.[0-9]+)?$' }),
+	number: t.String({ pattern: '^[0-9]+(\\.[0-9]+)?$', default: '01' }),
 	title: t.Nullable(t.String()),
 	volume: t.Nullable(t.String()),
 	pages: t.Integer({ minimum: 0 }),

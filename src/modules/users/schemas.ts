@@ -21,7 +21,7 @@ export const UserPlain = t.Object(
 	{
 		id: t.String(),
 		username: t.String(),
-		email: t.String({ format: 'email' }),
+		email: t.String({ format: 'email', default: 'username@example.com' }),
 		role: UserRoleEnumSchema,
 		createdAt: t.Date(),
 		updatedAt: t.Date(),

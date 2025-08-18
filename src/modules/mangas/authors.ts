@@ -9,6 +9,17 @@ export default new Elysia({
 })
 	.use(setup)
 	.use(MangaModel)
+	.get(
+		'/',
+		async ({ db, params: { id } }) => {
+			const data = await db.mangaAuthor.findMany({
+				where: { mangaId: id },
+			})
+
+			return { data }
+		},
+		{ publicRoute: true },
+	)
 	.post(
 		'/:authorId',
 		async ({ db, params: { id: mangaId, authorId }, query: { role }, set }) => {
