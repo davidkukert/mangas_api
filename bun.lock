@@ -10,6 +10,7 @@
         "@prisma/adapter-pg": "^6.14.0",
         "@prisma/client": "^6.14.0",
         "elysia": "^1.3.8",
+        "generate-password": "^1.7.1",
         "zod": "^4.0.17",
       },
       "devDependencies": {
@@ -130,6 +131,8 @@
     "fflate": ["fflate@0.8.2", "", {}, "sha512-cPJU47OaAoCbg0pBvzsgpTPhmhqI5eJjh/JIu8tPj5q+T7iLvW/JAYUqmE7KOB4R1ZyEhzBaIQpQpardBF5z8A=="],
 
     "file-type": ["file-type@21.0.0", "", { "dependencies": { "@tokenizer/inflate": "^0.2.7", "strtok3": "^10.2.2", "token-types": "^6.0.0", "uint8array-extras": "^1.4.0" } }, "sha512-ek5xNX2YBYlXhiUXui3D/BXa3LdqPmoLJ7rqEx2bKJ7EAUEfmXgW0Das7Dc6Nr9MvqaOnIqiPV0mZk/r/UpNAg=="],
+
+    "generate-password": ["generate-password@1.7.1", "", {}, "sha512-9bVYY+16m7W7GczRBDqXE+VVuCX+bWNrfYKC/2p2JkZukFb2sKxT6E3zZ3mJGz7GMe5iRK0A/WawSL3jQfJuNQ=="],
 
     "giget": ["giget@2.0.0", "", { "dependencies": { "citty": "^0.1.6", "consola": "^3.4.0", "defu": "^6.1.4", "node-fetch-native": "^1.6.6", "nypm": "^0.6.0", "pathe": "^2.0.3" }, "bin": { "giget": "dist/cli.mjs" } }, "sha512-L5bGsVkxJbJgdnwyuheIunkGatUF/zssUoxxjACCseZYAVbaqdh9Tsmmlkl8vYan09H7sbvKt4pS8GqKLBrEzA=="],
 

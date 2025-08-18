@@ -8,6 +8,8 @@ const envSchema = z.object({
 	BUCKET_NAME: z.string().min(1, 'BUCKET_NAME is required'),
 	ENDPOINT_URL: z.string().url().min(1, 'ENDPOINT_URL is required'),
 	PORT: z.coerce.number().default(3333).optional(),
+	ADMIN_EMAIL: z.email().min(1, 'ADMIN_EMAIL is required'),
+	ADMIN_USERNAME: z.string().min(1, 'ADMIN_USERNAME is required'),
 })
 
 export const envVars = envSchema.parse(process.env)

@@ -11,6 +11,7 @@ done
 
 echo "🚀 Rodando migrations..."
 bunx prisma migrate deploy
+bunx prisma db seed
 
 echo "✅ Iniciando aplicação..."
 exec bun run start

@@ -10,6 +10,7 @@
     "@prisma/adapter-pg": "^6.14.0",
     "@prisma/client": "^6.14.0",
     "elysia": "^1.3.8",
+    "generate-password": "^1.7.1",
     "zod": "^4.0.17"
   },
   "devDependencies": {
@@ -26,6 +27,10 @@
     "build:js": "bun build src/http/server.ts --target bun --outdir ./dist",
     "start": "NODE_ENV=production ./dist/server",
     "start:js": "NODE_ENV=production bun dist/server.js",
-    "test": "bun test"
+    "test": "bun test",
+    "seed": "bun run prisma/seed.ts"
+  },
+  "prisma": {
+    "seed": "bun run prisma/seed.ts"
   }
 }
